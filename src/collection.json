@@ -1,0 +1,9 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "mockify": {
+      "description": "A blank schematic.",
+      "factory": "./mockify/index#mockify"
+    }
+  }
+}
