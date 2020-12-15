@@ -33,7 +33,7 @@ export function buildWithBlocksRule(
         [
           generateTemplateFile(
             {
-              templateUrl: './files',
+              templateUrl: './files/key-segment.ts.template',
               variables
             }
           ),
