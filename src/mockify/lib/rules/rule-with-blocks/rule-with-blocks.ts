@@ -1,9 +1,9 @@
-import { deleteFile } from '../../utils/delete-file/delete-file';
-import { appendToFile } from '../../utils/append-to-file/append-to-file';
+import { deleteFile } from '../rule-delete-file/rule-delete-file';
+import { appendToFile } from '../rule-append-to-file/rule-append-to-file';
 import { Rule, SchematicContext, chain } from "@angular-devkit/schematics";
 import { Tree } from "@angular-devkit/schematics/src/tree/interface";
 import { TemplateVariablesModel } from "../../../models/template-variables.model";
-import { generateTemplateFile } from '../../utils/generate-template-file/generate-template-file'
+import { generateTemplateFile } from '../rule-generate-template-file/rule-generate-template-file'
 
 export function buildWithBlocksRule(
   className: string,
