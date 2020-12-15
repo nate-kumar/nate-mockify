@@ -6,7 +6,6 @@ import { buildDefaultDataRule } from './lib/rules/rule-default-data/rule-default
 import { buildModelFunctionRule } from './lib/rules/rule-model-function/rule-model-function'
 import { buildCloseCurlyBraceRule } from './lib/rules/rule-close-curly-brace/rule-close-curly-brace'
 import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
-// import { dasherize } from '@angular-devkit/core/src/utils/strings';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -14,8 +13,8 @@ export function mockify( _options: Schema ): Rule {
     tree: Tree,
     _context: SchematicContext
   ) => {
-    const modelUrl = './models/main-menu.model.ts'
-    const mockUrl = modelUrl.replace( 'models', 'mocks' ).replace( '.ts', '.mock.ts' )
+    const modelUrl: string = './models/main-menu.model.ts'
+    const mockUrl: string = modelUrl.replace( 'models', 'mocks' ).replace( '.ts', '.mock.ts' )
     
     const modelFileBuffer: Buffer = tree.read( modelUrl ) || Buffer.from( '' );
     const {

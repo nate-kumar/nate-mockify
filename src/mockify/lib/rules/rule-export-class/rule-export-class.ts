@@ -23,7 +23,7 @@ export function buildExportClassRule(
         fileToUpdatePathSegment: mockUrl,
         formatting: {
           numLineBreaksBefore: 1,
-          numLineBreaksAfter: 1
+          numLineBreaksAfter: 2
         }
       }
 

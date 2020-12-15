@@ -21,7 +21,7 @@ export function buildModelFunctionRule(
         templatePathSegment: 'model-function-segment.ts.template',
         fileToUpdatePathSegment: mockUrl,
         formatting: {
-          numLineBreaksBefore: 1,
+          numLineBreaksBefore: 2,
           numLineBreaksAfter: 1
         }
       }

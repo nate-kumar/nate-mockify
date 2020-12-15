@@ -78,7 +78,7 @@ function getDefaultDataCloseCurlyBraceRule( mockUrl: string ) {
       fileToUpdatePathSegment: mockUrl,
       formatting: {
         numLineBreaksBefore: 1,
-        numLineBreaksAfter: 1
+        numLineBreaksAfter: 2
       }
     }
 
