@@ -4,6 +4,7 @@ import { buildWithBlocksRule } from './lib/rules/rule-with-blocks/rule-with-bloc
 import { buildExportClassRule } from './lib/rules/rule-export-class/rule-export-class'
 import { buildDefaultDataRule } from './lib/rules/rule-default-data/rule-default-data'
 import { buildModelFunctionRule } from './lib/rules/rule-model-function/rule-model-function'
+import { buildCloseCurlyBraceRule } from './lib/rules/rule-close-curly-brace/rule-close-curly-brace'
 import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
 
 
@@ -23,7 +24,7 @@ export function mockify( _options: Schema ): Rule {
     const ruleDefaultData: Rule = buildDefaultDataRule( className, keys );
     const ruleWithBlocks: Rule = buildWithBlocksRule( className, keys );
     const ruleModelFunction: Rule = buildModelFunctionRule( className );
-    // const ruleCloseCurlyBrace: Rule = buildCloseCurlyBraceRule();
+    const ruleCloseCurlyBrace: Rule = buildCloseCurlyBraceRule();
 
     const rulesFullModelFile: Rule[] =
       [
@@ -31,7 +32,7 @@ export function mockify( _options: Schema ): Rule {
         ruleDefaultData,
         ruleWithBlocks,
         ruleModelFunction,
-        // ruleCloseCurlyBrace
+        ruleCloseCurlyBrace
       ]
 
     return chain( rulesFullModelFile )( tree, _context )

@@ -18,7 +18,6 @@ export function buildDefaultDataRule(
     rulesFullModelFile.push( defaultDataClassRule )
 
     for ( const key of keys ) {
-      console.log( key, keys )
       const defaultDataKeyRule: Rule = getDefaultDataKeyRule( key )
       rulesFullModelFile.push( defaultDataKeyRule )
     }
