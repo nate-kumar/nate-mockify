@@ -7,9 +7,19 @@ export function appendToFile( _options: AddToFileModel ): Rule {
     tree: Tree,
     _context: SchematicContext
   ) => {
-    const { fileToUpdateUrl } = _options
+    const { 
+      fileToReadUrl,
+      fileToUpdateUrl,
+      numLineBreaksBefore,
+      numLineBreaksAfter
+    } = _options
 
-    const content: string = `\r\n\r\n${ tree.read( 'key-segment.ts.template' )?.toString() }` || '';
+    const lineBreaksBefore = `${ '\r\n'.repeat( numLineBreaksBefore || 0 ) }`;
+    const fileLines = `${ tree.read( fileToReadUrl )?.toString() }`;
+    const lineBreaksAfter = `${ '\r\n'.repeat( numLineBreaksAfter || 0 ) }`;
+
+    const content: string = `${ lineBreaksBefore }${ fileLines }${ lineBreaksAfter }` || '';
+    console.log( content )
 
     const lastChar: number = tree.read( fileToUpdateUrl )?.length || 0;
     const updateRecorder: UpdateRecorder = tree.beginUpdate(fileToUpdateUrl);

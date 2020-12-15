@@ -20,7 +20,7 @@ export function buildWithBlocksRule(
       const variableSet: TemplateVariablesModel =
         {
           key,
-          modelName: className
+          className
         }
       
       variableSets.push( variableSet );
@@ -39,7 +39,10 @@ export function buildWithBlocksRule(
           ),
           appendToFile(
             {
-              fileToUpdateUrl: './src/mockify/mocks/key-segment.ts.template'
+              fileToReadUrl: 'key-segment.ts.template',
+              fileToUpdateUrl: './src/mockify/mocks/key-segment.ts.template',
+              numLineBreaksBefore: 1,
+              numLineBreaksAfter: 1
             }
           ),
           deleteFile( 'key-segment.ts.template' )

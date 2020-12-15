@@ -1,6 +1,6 @@
 export interface TemplateVariablesModel {
-  key: string;
-  modelName: string;
+  key?: string;
+  className: string;
 }
 
 export interface ClassNameAndKeysModel {

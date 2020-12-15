@@ -1,3 +1,6 @@
 export interface AddToFileModel {
-  fileToUpdateUrl: string
+  fileToReadUrl: string;
+  fileToUpdateUrl: string;
+  numLineBreaksBefore?: number;
+  numLineBreaksAfter?: number;
 }

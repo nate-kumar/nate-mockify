@@ -1,6 +1,7 @@
 import { Schema } from './schema.d';
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
 import { buildWithBlocksRule } from './lib/rules/rule-with-blocks/rule-with-blocks'
+import { buildExportClassRule } from './lib/rules/rule-export-class/rule-export-class'
 import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
 
 
@@ -16,7 +17,7 @@ export function mockify( _options: Schema ): Rule {
       keys
     } = getClassNameAndKeys( modelFileBuffer );
 
-    // const ruleExportClass: Rule = buildExportClassRule();
+    const ruleExportClass: Rule = buildExportClassRule( className );
     // const ruleDefaultData: Rule = buildDefaultDataRule();
     const ruleWithBlocks: Rule = buildWithBlocksRule( className, keys );
     // const ruleModelFunction: Rule = buildModelFunctionRule();
@@ -24,7 +25,7 @@ export function mockify( _options: Schema ): Rule {
 
     const rulesFullModelFile: Rule[] =
       [
-        // ruleExportClass,
+        ruleExportClass,
         // ruleDefaultData,
         ruleWithBlocks,
         // ruleModelFunction,
