@@ -24,8 +24,8 @@ export function buildExportClassRule( className: string ): Rule {
       ),
       appendToFile(
         {
-          fileToReadUrl: 'export-class-segment.ts.template',
-          fileToUpdateUrl: './src/mockify/mocks/key-segment.ts.template',
+          fileToCopyContentFromUrl: 'export-class-segment.ts.template',
+          fileToAppendContentToUrl: './src/mockify/mocks/key-segment.ts.template',
           numLineBreaksBefore: 1,
           numLineBreaksAfter: 2
         }

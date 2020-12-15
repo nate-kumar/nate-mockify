@@ -8,21 +8,20 @@ export function appendToFile( _options: AddToFileModel ): Rule {
     _context: SchematicContext
   ) => {
     const { 
-      fileToReadUrl,
-      fileToUpdateUrl,
+      fileToCopyContentFromUrl,
+      fileToAppendContentToUrl,
       numLineBreaksBefore,
       numLineBreaksAfter
     } = _options
 
     const lineBreaksBefore = `${ '\r\n'.repeat( numLineBreaksBefore || 0 ) }`;
-    const fileLines = `${ tree.read( fileToReadUrl )?.toString() }`;
+    const fileLines = `${ tree.read( fileToCopyContentFromUrl )?.toString() }`;
     const lineBreaksAfter = `${ '\r\n'.repeat( numLineBreaksAfter || 0 ) }`;
 
     const content: string = `${ lineBreaksBefore }${ fileLines }${ lineBreaksAfter }` || '';
-    console.log( content )
 
-    const lastChar: number = tree.read( fileToUpdateUrl )?.length || 0;
-    const updateRecorder: UpdateRecorder = tree.beginUpdate(fileToUpdateUrl);
+    const lastChar: number = tree.read( fileToAppendContentToUrl )?.length || 0;
+    const updateRecorder: UpdateRecorder = tree.beginUpdate(fileToAppendContentToUrl);
     updateRecorder.insertRight( lastChar, content )
     tree.commitUpdate( updateRecorder );
 

@@ -39,8 +39,8 @@ export function buildWithBlocksRule(
           ),
           appendToFile(
             {
-              fileToReadUrl: 'key-segment.ts.template',
-              fileToUpdateUrl: './src/mockify/mocks/key-segment.ts.template',
+              fileToCopyContentFromUrl: 'key-segment.ts.template',
+              fileToAppendContentToUrl: './src/mockify/mocks/key-segment.ts.template',
               numLineBreaksBefore: 1,
               numLineBreaksAfter: 1
             }
