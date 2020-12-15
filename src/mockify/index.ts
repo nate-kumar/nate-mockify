@@ -23,6 +23,9 @@ export function mockify( _options: Schema ): Rule {
       keys
     } = getClassNameAndKeys( modelFileBuffer );
 
+    if ( tree.exists( mockUrl ) ) {
+      tree.delete( mockUrl )
+    }
     tree.create( mockUrl, '' )
 
     const ruleExportClass: Rule = buildExportClassRule( mockUrl, className );
