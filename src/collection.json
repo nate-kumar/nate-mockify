@@ -3,7 +3,8 @@
   "schematics": {
     "mockify": {
       "description": "A blank schematic.",
-      "factory": "./mockify/index#mockify"
+      "factory": "./mockify/index#mockify",
+      "schema": "./mockify/schema.json"
     }
   }
 }
