@@ -3,6 +3,7 @@ import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics'
 import { buildWithBlocksRule } from './lib/rules/rule-with-blocks/rule-with-blocks'
 import { buildExportClassRule } from './lib/rules/rule-export-class/rule-export-class'
 import { buildDefaultDataRule } from './lib/rules/rule-default-data/rule-default-data'
+import { buildModelFunctionRule } from './lib/rules/rule-model-function/rule-model-function'
 import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
 
 
@@ -21,7 +22,7 @@ export function mockify( _options: Schema ): Rule {
     const ruleExportClass: Rule = buildExportClassRule( className );
     const ruleDefaultData: Rule = buildDefaultDataRule( className, keys );
     const ruleWithBlocks: Rule = buildWithBlocksRule( className, keys );
-    // const ruleModelFunction: Rule = buildModelFunctionRule();
+    const ruleModelFunction: Rule = buildModelFunctionRule( className );
     // const ruleCloseCurlyBrace: Rule = buildCloseCurlyBraceRule();
 
     const rulesFullModelFile: Rule[] =
@@ -29,7 +30,7 @@ export function mockify( _options: Schema ): Rule {
         ruleExportClass,
         ruleDefaultData,
         ruleWithBlocks,
-        // ruleModelFunction,
+        ruleModelFunction,
         // ruleCloseCurlyBrace
       ]
 
