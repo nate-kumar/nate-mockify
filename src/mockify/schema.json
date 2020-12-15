@@ -10,11 +10,7 @@
       "$default": {
         "$source": "argv",
         "index": 0
-      },
-      "x-prompt": "Provide a url for a .model.ts file"
+      }
     }
-  },
-  "required": [
-    "file"
-  ]
+  }
 }

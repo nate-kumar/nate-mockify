@@ -1,0 +1,5 @@
+  public with<%= classify(key) %> ( <%= key %>: <%= classify(modelName) %>[ '<%= key %>' ] ): <%= classify(modelName) %>Mock {
+    this._data.<%= key %> = <%= key %>;
+
+    return this;
+  }
