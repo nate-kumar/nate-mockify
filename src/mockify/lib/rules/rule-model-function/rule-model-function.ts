@@ -5,7 +5,10 @@ import { Tree } from "@angular-devkit/schematics/src/tree/interface";
 import { AddCodeFromTemplateModel } from "../../../models/add-code-from-template.model";
 import { addCodeFromTemplate } from "../rule-add-code-from-template/rule-add-code-from-template";
 
-export function buildModelFunctionRule( className: string ): Rule {
+export function buildModelFunctionRule(
+  mockUrl: string,
+  className: string
+): Rule {
   return (
     tree: Tree,
     _context: SchematicContext
@@ -16,7 +19,7 @@ export function buildModelFunctionRule( className: string ): Rule {
           className
         },
         templatePathSegment: 'model-function-segment.ts.template',
-        fileToUpdatePathSegment: 'key-segment.ts.template',
+        fileToUpdatePathSegment: mockUrl,
         formatting: {
           numLineBreaksBefore: 1,
           numLineBreaksAfter: 1

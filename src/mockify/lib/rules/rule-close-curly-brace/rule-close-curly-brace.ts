@@ -3,7 +3,7 @@ import { Tree } from "@angular-devkit/schematics/src/tree/interface";
 import { AddCodeFromTemplateModel } from "../../../models/add-code-from-template.model";
 import { addCodeFromTemplate } from "../rule-add-code-from-template/rule-add-code-from-template";
 
-export function buildCloseCurlyBraceRule(): Rule {
+export function buildCloseCurlyBraceRule( mockUrl: string ): Rule {
   return (
     tree: Tree,
     _context: SchematicContext
@@ -11,7 +11,7 @@ export function buildCloseCurlyBraceRule(): Rule {
     const addCodeFromTemplateConfig: AddCodeFromTemplateModel =
       {
         templatePathSegment: 'close-curly-brace-segment.ts.template',
-        fileToUpdatePathSegment: 'key-segment.ts.template',
+        fileToUpdatePathSegment: mockUrl,
         formatting: {
           numLineBreaksBefore: 1
         }

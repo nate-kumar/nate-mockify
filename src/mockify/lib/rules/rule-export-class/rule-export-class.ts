@@ -6,7 +6,10 @@ import { Tree } from "@angular-devkit/schematics/src/tree/interface";
 import { addCodeFromTemplate } from './../rule-add-code-from-template/rule-add-code-from-template'
 import { AddCodeFromTemplateModel } from '../../../models/add-code-from-template.model';
 
-export function buildExportClassRule( className: string ): Rule {
+export function buildExportClassRule( 
+  mockUrl: string,
+  className: string
+): Rule {
   return (
     tree: Tree,
     _context: SchematicContext
@@ -17,7 +20,7 @@ export function buildExportClassRule( className: string ): Rule {
           className
         },
         templatePathSegment: 'export-class-segment.ts.template',
-        fileToUpdatePathSegment: 'key-segment.ts.template',
+        fileToUpdatePathSegment: mockUrl,
         formatting: {
           numLineBreaksBefore: 1,
           numLineBreaksAfter: 1

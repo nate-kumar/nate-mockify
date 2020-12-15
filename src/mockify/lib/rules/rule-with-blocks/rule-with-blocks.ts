@@ -4,6 +4,7 @@ import { AddCodeFromTemplateModel } from '../../../models/add-code-from-template
 import { addCodeFromTemplate } from '../rule-add-code-from-template/rule-add-code-from-template';
 
 export function buildWithBlocksRule(
+  mockUrl: string,
   className: string,
   keys: string[]
 ): Rule {
@@ -22,7 +23,7 @@ export function buildWithBlocksRule(
             key
           },
           templatePathSegment: 'key-segment.ts.template',
-          fileToUpdatePathSegment: 'key-segment.ts.template',
+          fileToUpdatePathSegment: mockUrl,
           formatting: {
             numLineBreaksBefore: 1,
             numLineBreaksAfter: 1

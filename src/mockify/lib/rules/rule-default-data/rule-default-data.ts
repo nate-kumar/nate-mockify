@@ -4,6 +4,7 @@ import { AddCodeFromTemplateModel } from "../../../models/add-code-from-template
 import { addCodeFromTemplate } from "../rule-add-code-from-template/rule-add-code-from-template";
 
 export function buildDefaultDataRule(
+  mockUrl: string,
   className: string,
   keys: string[]
 ): Rule {
@@ -14,15 +15,15 @@ export function buildDefaultDataRule(
 
     let rulesFullModelFile: Rule[] = [];
 
-    const defaultDataClassRule: Rule = getDefaultDataClassRule( className );
+    const defaultDataClassRule: Rule = getDefaultDataClassRule( mockUrl, className );
     rulesFullModelFile.push( defaultDataClassRule )
 
     for ( const key of keys ) {
-      const defaultDataKeyRule: Rule = getDefaultDataKeyRule( key )
+      const defaultDataKeyRule: Rule = getDefaultDataKeyRule( mockUrl, key )
       rulesFullModelFile.push( defaultDataKeyRule )
     }
 
-    const defaultDataCloseCurlyBraceRule: Rule = getDefaultDataCloseCurlyBraceRule();
+    const defaultDataCloseCurlyBraceRule: Rule = getDefaultDataCloseCurlyBraceRule( mockUrl );
     rulesFullModelFile.push( defaultDataCloseCurlyBraceRule )
 
     // TODO remove
@@ -32,15 +33,17 @@ export function buildDefaultDataRule(
   };
 }
 
-function getDefaultDataClassRule( className: string ) {
-    // Add class header
+function getDefaultDataClassRule(
+  mockUrl: string,
+  className: string
+) {
   const defaultDataClassConfig: AddCodeFromTemplateModel =
     {
       variables: {
         className
       },
       templatePathSegment: 'default-data-class-segment.ts.template',
-      fileToUpdatePathSegment: 'key-segment.ts.template',
+      fileToUpdatePathSegment: mockUrl,
       formatting: {
         numLineBreaksBefore: 1
       }
@@ -49,15 +52,17 @@ function getDefaultDataClassRule( className: string ) {
   return addCodeFromTemplate( defaultDataClassConfig )
 }
 
-function getDefaultDataKeyRule( key: string ) {
-    // Add row for each key
+function getDefaultDataKeyRule(
+  mockUrl: string,
+  key: string
+) {
   const defaultDataKeyConfig: AddCodeFromTemplateModel =
     {
       variables: {
         key
       },
       templatePathSegment: 'default-data-key-segment.ts.template',
-      fileToUpdatePathSegment: 'key-segment.ts.template',
+      fileToUpdatePathSegment: mockUrl,
       formatting: {
         numLineBreaksBefore: 1
       }
@@ -66,12 +71,11 @@ function getDefaultDataKeyRule( key: string ) {
   return addCodeFromTemplate( defaultDataKeyConfig );
 }
 
-function getDefaultDataCloseCurlyBraceRule() {
-    // Add row for each key
+function getDefaultDataCloseCurlyBraceRule( mockUrl: string ) {
   const defaultDataKeyConfig: AddCodeFromTemplateModel =
     {
       templatePathSegment: 'default-data-close-curly-brace-segment.ts.template',
-      fileToUpdatePathSegment: 'key-segment.ts.template',
+      fileToUpdatePathSegment: mockUrl,
       formatting: {
         numLineBreaksBefore: 1,
         numLineBreaksAfter: 1

@@ -32,7 +32,7 @@ export function addCodeFromTemplate( _options: AddCodeFromTemplateModel ): Rule 
     const appendToFileConfig: AddToFileModel =
       {
         fileToCopyContentFromUrl: `${ templatePathSegment }`,
-        fileToAppendContentToUrl: `./src/mockify/mocks/${ fileToUpdatePathSegment }`,
+        fileToAppendContentToUrl: `${ fileToUpdatePathSegment }`,
         numLineBreaksBefore,
         numLineBreaksAfter
       }
