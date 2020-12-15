@@ -30,6 +30,7 @@
   ],
   "exclude": [
     "src/*/files/**/*",
-    "src/*/models/**"
+    "src/*/models/*",
+    "src/*/lib/**/*",
   ]
 }
