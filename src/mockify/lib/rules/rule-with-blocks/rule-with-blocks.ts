@@ -1,9 +1,8 @@
-import { deleteFile } from '../rule-delete-file/rule-delete-file';
-import { appendToFile } from '../rule-append-to-file/rule-append-to-file';
 import { Rule, SchematicContext, chain } from "@angular-devkit/schematics";
 import { Tree } from "@angular-devkit/schematics/src/tree/interface";
 import { TemplateVariablesModel } from "../../../models/template-variables.model";
-import { generateTemplateFile } from '../rule-generate-template-file/rule-generate-template-file'
+import { AddCodeFromTemplateModel } from '../../../models/add-code-from-template.model';
+import { addCodeFromTemplate } from '../rule-add-code-from-template/rule-add-code-from-template';
 
 export function buildWithBlocksRule(
   className: string,
@@ -29,26 +28,21 @@ export function buildWithBlocksRule(
     let rulesFullModelFile: Rule[] = [];
 
     for ( const variables of variableSets ) {
-      const rulesSingleModelKey: Rule[] =
-        [
-          generateTemplateFile(
-            {
-              templateUrl: './files/key-segment.ts.template',
-              variables
-            }
-          ),
-          appendToFile(
-            {
-              fileToCopyContentFromUrl: 'key-segment.ts.template',
-              fileToAppendContentToUrl: './src/mockify/mocks/key-segment.ts.template',
-              numLineBreaksBefore: 1,
-              numLineBreaksAfter: 1
-            }
-          ),
-          deleteFile( 'key-segment.ts.template' )
-        ]
+      const addCodeFromTemplateConfig: AddCodeFromTemplateModel =
+        {
+          variables: {
+            className: variables?.className,
+            key: variables?.key
+          },
+          templatePathSegment: 'key-segment.ts.template',
+          fileToUpdatePathSegment: 'key-segment.ts.template',
+          formatting: {
+            numLineBreaksBefore: 1,
+            numLineBreaksAfter: 1
+          }
+        }
 
-      rulesFullModelFile.push( ...rulesSingleModelKey )
+      rulesFullModelFile.push( addCodeFromTemplate( addCodeFromTemplateConfig ) )
     }
 
     // TODO remove

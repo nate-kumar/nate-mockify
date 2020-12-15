@@ -1,41 +1,32 @@
-import { TemplateVariablesModel } from './../../../models/template-variables.model';
-import { chain, Rule, SchematicContext } from "@angular-devkit/schematics";
+import { Rule, SchematicContext } from "@angular-devkit/schematics";
 import { Tree } from "@angular-devkit/schematics/src/tree/interface";
-import { appendToFile } from "../rule-append-to-file/rule-append-to-file";
-import { deleteFile } from "../rule-delete-file/rule-delete-file";
-import { generateTemplateFile } from "../rule-generate-template-file/rule-generate-template-file";
+// import { appendToFile } from "../rule-append-to-file/rule-append-to-file";
+// import { deleteFile } from "../rule-delete-file/rule-delete-file";
+// import { generateTemplateFile } from "../rule-generate-template-file/rule-generate-template-file";
+import { addCodeFromTemplate } from './../rule-add-code-from-template/rule-add-code-from-template'
+import { AddCodeFromTemplateModel } from '../../../models/add-code-from-template.model';
 
 export function buildExportClassRule( className: string ): Rule {
   return (
     tree: Tree,
     _context: SchematicContext
   ) => {
-    const variables: TemplateVariablesModel = 
+    const addCodeFromTemplateConfig: AddCodeFromTemplateModel =
       {
-        className
-      };
-
-    const rules: Rule[] = [
-      generateTemplateFile(
-        {
-          templateUrl: './files/export-class-segment.ts.template',
-          variables
-        }
-      ),
-      appendToFile(
-        {
-          fileToCopyContentFromUrl: 'export-class-segment.ts.template',
-          fileToAppendContentToUrl: './src/mockify/mocks/key-segment.ts.template',
+        variables: {
+          className
+        },
+        templatePathSegment: 'export-class-segment.ts.template',
+        fileToUpdatePathSegment: 'key-segment.ts.template',
+        formatting: {
           numLineBreaksBefore: 1,
-          numLineBreaksAfter: 2
+          numLineBreaksAfter: 1
         }
-      ),
-      deleteFile( 'export-class-segment.ts.template' )
-    ]
+      }
 
     tree
 
-    return chain( rules )
+    return addCodeFromTemplate( addCodeFromTemplateConfig )
   }
 }
 
