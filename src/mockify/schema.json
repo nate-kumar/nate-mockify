@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "Mockify",
+  "title": "Mockify Options Schema",
+  "description": "Generates mock file for a given TypeScript model",
+  "properties": {
+    "file": {
+      "type": "string",
+      "description": "The url of the .model.ts file",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Provide a url for a .model.ts file"
+    }
+  },
+  "required": [
+    "file"
+  ]
+}
