@@ -25,7 +25,7 @@ export function buildWithBlocksRule(
       variableSets.push( variableSet );
     }
 
-    let rulesFullModelFile: Rule[] = [];
+    let rulesAllWithBlocks: Rule[] = [];
 
     for ( const variables of variableSets ) {
       const addCodeFromTemplateConfig: AddCodeFromTemplateModel =
@@ -42,13 +42,13 @@ export function buildWithBlocksRule(
           }
         }
 
-      rulesFullModelFile.push( addCodeFromTemplate( addCodeFromTemplateConfig ) )
+      rulesAllWithBlocks.push( addCodeFromTemplate( addCodeFromTemplateConfig ) )
     }
 
     // TODO remove
     tree
     
-    return chain( rulesFullModelFile );
+    return chain( rulesAllWithBlocks );
   };
 }
 

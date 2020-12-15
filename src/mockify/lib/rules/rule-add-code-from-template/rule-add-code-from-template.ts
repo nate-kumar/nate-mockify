@@ -17,12 +17,12 @@ export function addCodeFromTemplate( _options: AddCodeFromTemplateModel ): Rule 
       variables,
       templatePathSegment,
       fileToUpdatePathSegment
-    } = _options
+    } = { ..._options }
 
     const {
       numLineBreaksBefore,
       numLineBreaksAfter
-    } = _options?.formatting || {}
+    } = { ..._options?.formatting }
 
     const generateTemplateConfig: GenerateTemplateModel =
       {
