@@ -3,8 +3,10 @@ import { SegmentsModel } from './../../../models/segments.model';
 
 export function getClassNameAndKeys( modelFileBuffer: Buffer ) {
   // Get code as string from .model.ts file
+  console.log( modelFileBuffer )
   const modelFileBufferString: string = modelFileBuffer.toString();
   const linesOfCodeArray: string[] = modelFileBufferString.split( '\r\n' );
+  console.log( linesOfCodeArray )
 
   // Split code into sections of interest
   const {
@@ -28,10 +30,28 @@ export function getClassNameAndKeys( modelFileBuffer: Buffer ) {
 }
 
 function getSegmentsFromModelLines( linesOfCodeArray: string[] ) {
+  const indexExportInterfaceOriginal: number =
+    linesOfCodeArray
+      ?.findIndex(
+        ( line: string ) => 
+          line.includes( 'interface ' )
+          || line.includes( 'class ' )
+      );
+  console.log( indexExportInterfaceOriginal )
+
+  linesOfCodeArray =
+    [ ...linesOfCodeArray ]
+      ?.slice(
+        indexExportInterfaceOriginal
+      )
+  console.log( linesOfCodeArray )
+
   const indexExportInterface: number =
     linesOfCodeArray
       ?.findIndex(
-        ( line: string ) => line.includes( 'interface ' )
+        ( line: string ) => 
+          line.includes( 'interface ' )
+          || line.includes( 'class ' )
       );
   const lineExportInterface: string = linesOfCodeArray[ indexExportInterface ];
 
@@ -64,13 +84,23 @@ function getSegmentsFromModelLines( linesOfCodeArray: string[] ) {
 
 function getClassName( lineExportInterface: string ) {
   const patternInterface: string = 'interface ';
+  const patternClass: string = 'class ';
   const patternOpenCurlyBrace: string = '{'
 
-  const indexPatternInterface: number = lineExportInterface?.indexOf( patternInterface )
-  const indexStartOfClassName: number = indexPatternInterface + patternInterface.length;
+  const indexPatternInterface: number = lineExportInterface?.indexOf( patternInterface );
+  const indexPatternClass: number = lineExportInterface?.indexOf( patternClass );
+  console.log( {indexPatternInterface} )
+  console.log( {indexPatternClass} )
+  const indexStartOfClassName: number =
+    indexPatternInterface !== -1
+      ? indexPatternInterface + patternInterface.length
+      : indexPatternClass + patternClass.length;
   const indexEndOfClassName: number = lineExportInterface?.indexOf( patternOpenCurlyBrace ) - patternOpenCurlyBrace.length;
 
-  if ( indexPatternInterface > 0 ) {
+  if (
+    indexPatternInterface > 0
+    || indexPatternClass > 0
+  ) {
     const classNameCamelCase =
       lineExportInterface
         .substring(

@@ -13,12 +13,13 @@ export function mockify( _options: Schema ): Rule {
     tree: Tree,
     _context: SchematicContext
   ) => {
-    _options.modelUrl = './models/neo-date.model.ts'
+    _options.modelUrl = './models/main-menu.model.ts'
     const modelFileBuffer: Buffer = tree.read( _options.modelUrl ) || Buffer.from( '' );
     const {
       className,
       keys
     } = getClassNameAndKeys( modelFileBuffer );
+    console.log( className, keys )
 
     const ruleExportClass: Rule = buildExportClassRule( className );
     const ruleDefaultData: Rule = buildDefaultDataRule( className, keys );
@@ -37,4 +38,8 @@ export function mockify( _options: Schema ): Rule {
 
     return chain( rulesFullModelFile )( tree, _context )
   }
+}
+
+export function mockifyFile( _options: any ) {
+
 }
