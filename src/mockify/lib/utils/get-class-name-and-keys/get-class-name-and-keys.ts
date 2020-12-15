@@ -3,10 +3,8 @@ import { SegmentsModel } from './../../../models/segments.model';
 
 export function getClassNameAndKeys( modelFileBuffer: Buffer ) {
   // Get code as string from .model.ts file
-  console.log( modelFileBuffer )
   const modelFileBufferString: string = modelFileBuffer.toString();
   const linesOfCodeArray: string[] = modelFileBufferString.split( '\r\n' );
-  console.log( linesOfCodeArray )
 
   // Split code into sections of interest
   const {
@@ -37,14 +35,12 @@ function getSegmentsFromModelLines( linesOfCodeArray: string[] ) {
           line.includes( 'interface ' )
           || line.includes( 'class ' )
       );
-  console.log( indexExportInterfaceOriginal )
 
   linesOfCodeArray =
     [ ...linesOfCodeArray ]
       ?.slice(
         indexExportInterfaceOriginal
       )
-  console.log( linesOfCodeArray )
 
   const indexExportInterface: number =
     linesOfCodeArray
@@ -89,8 +85,6 @@ function getClassName( lineExportInterface: string ) {
 
   const indexPatternInterface: number = lineExportInterface?.indexOf( patternInterface );
   const indexPatternClass: number = lineExportInterface?.indexOf( patternClass );
-  console.log( {indexPatternInterface} )
-  console.log( {indexPatternClass} )
   const indexStartOfClassName: number =
     indexPatternInterface !== -1
       ? indexPatternInterface + patternInterface.length
