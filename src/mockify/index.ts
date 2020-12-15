@@ -13,7 +13,29 @@ export function mockify( _options: Schema ): Rule {
     tree: Tree,
     _context: SchematicContext
   ) => {
-    const modelUrl: string = './models/main-menu.model.ts'
+    const modelUrls =
+      [
+        './models/main-menu.model.ts',
+        './models/neo-date.model.ts'
+      ]
+
+    let rulesFullModelFolder: Rule[] = []
+
+    for ( const modelUrl of modelUrls ) {
+      const rulesFullModelFile = mockifyFile( modelUrl )
+      rulesFullModelFolder.push( rulesFullModelFile )
+    }
+
+    return chain( rulesFullModelFolder )( tree, _context )
+  }
+}
+
+export function mockifyFile( modelUrl: string ) {
+  return (
+    tree: Tree,
+    _context: SchematicContext
+  ) => {
+    // const modelUrl: string = './models/main-menu.model.ts'
     const mockUrl: string = modelUrl.replace( 'models', 'mocks' ).replace( '.ts', '.mock.ts' )
     
     const modelFileBuffer: Buffer = tree.read( modelUrl ) || Buffer.from( '' );
@@ -44,8 +66,4 @@ export function mockify( _options: Schema ): Rule {
 
     return chain( rulesFullModelFile )( tree, _context )
   }
-}
-
-export function mockifyFile( _options: any ) {
-
 }
