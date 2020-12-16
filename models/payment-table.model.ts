@@ -1,9 +1,9 @@
 import { CorpAddressModel } from "./corp-address.model";
 import { SimpleStatusEnum } from "../_enums/widget-config.enum";
-import { PaymentInterface } from "./payments.model";
+import { PaymentModel } from "./payments.model";
 import { OrderPersonModel } from "./order-person.model";
 
-export interface PaymentTableInterface extends PaymentInterface {
+export interface PaymentTableModel extends PaymentModel {
   operatorName: string;
   bookedOrderDate: string;
   sourceBankAccountOwner: OrderPersonModel;

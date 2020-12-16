@@ -1,1 +1,1 @@
-export type SortFunction<T> = (itemA: T, itemB: T) => number;
+export type WidgetUtilitiesSortFunctionType<T> = (itemA: T, itemB: T) => number;

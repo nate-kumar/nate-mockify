@@ -3,6 +3,3 @@ export interface StringSelectItemModel {
   value: string;
 }
 
-export interface StringSelectPresetItemModel extends StringSelectItemModel {
-  isPresetValue: boolean;
-}

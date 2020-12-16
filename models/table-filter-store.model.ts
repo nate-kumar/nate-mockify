@@ -1,5 +1,5 @@
 import { KeyValueModel } from "../shared/utility-functions";
 
-export interface FilterStore {
+export interface TableFilterStoreModel {
   [filterId: string]: KeyValueModel<any>;
 }

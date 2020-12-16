@@ -1,4 +1,4 @@
-import { InternalTransactionModel } from "./reconciliation.model";
+import { InternalTransactionModel } from "./Internal-transaction.model";
 
 export interface SelectedInternalTransactionModel {
   selectedTotal: number;

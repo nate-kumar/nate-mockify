@@ -4,7 +4,7 @@ import {
   TriangleWeightEnum
 } from '../_enums/trade-leg-indicator-triangle.enum';
 
-export class TradeLegIndicatorTriangle { // TODO rename file from model.ts
+export class TradeLegIndicatorTriangleModel {
   colour: TriangleColourEnum;
   pointing: TriangleDirectionEnum;
   weight: TriangleWeightEnum;

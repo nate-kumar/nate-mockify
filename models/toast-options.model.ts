@@ -1,4 +1,4 @@
-export class NeoToastOptionsModel {
+export class ToastOptionsModel {
   shouldStack?: boolean;
   message?: string;
   cssClass?: string | string[];

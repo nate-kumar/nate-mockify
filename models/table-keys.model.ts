@@ -1,4 +1,4 @@
-export interface TableKeysInterface {
+export interface TableKeysModel {
   layout: string;
   filters: string;
 }

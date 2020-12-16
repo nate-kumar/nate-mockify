@@ -1,4 +1,4 @@
-export interface RadioButtonBuildValueModel {
+export interface RadioButtonModel {
   value: string | boolean;
   translation?: string;
   translationParams?: any;

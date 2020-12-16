@@ -1,7 +1,7 @@
 import { NeoNotificationModel} from "./notification.model";
-import { NeoTotalsModel } from "./notification-totals.model";
+import { NotificationTotalsModel } from "./notification-totals.model";
 
-export interface NeoNotificationsResponse {
+export interface NotificationsResponseModel {
   notifications: NeoNotificationModel[];
-  totals?: NeoTotalsModel;
+  totals?: NotificationTotalsModel;
 }

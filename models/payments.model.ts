@@ -8,7 +8,7 @@ import { PaymentsClientModel } from "./payments-client.model";
 import { PaymentsUserAccountModel } from "./payments-user-account.model";
 
 // This is now using the v2 structure
-export interface PaymentInterface {
+export interface PaymentModel {
   actions: string[];
   id: string;
   clientOrderId: string;

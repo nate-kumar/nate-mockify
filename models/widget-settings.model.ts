@@ -1,4 +1,4 @@
-export interface SettingModel {
+export interface WidgetSettingModel {
   delete?: boolean;
   edit?: boolean;
   duplicate?: boolean;

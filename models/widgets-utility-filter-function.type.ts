@@ -1,1 +1,1 @@
-export type FilterFunction<T> = (item: T) => boolean;
+export type WidgetUtilitiesFilterFunctionType<T> = (item: T) => boolean;

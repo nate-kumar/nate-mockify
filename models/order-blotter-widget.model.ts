@@ -1,6 +1,6 @@
 import { OrderModel } from "./order.model";
 
-export interface NeoOrderBlotterWidgetModel extends OrderModel {
+export interface OrderBlotterWidgetModel extends OrderModel {
   isExecutedSorting: boolean;
   dateTradedSorting: Date;
   dateBookedSorting: Date;

@@ -1,6 +1,6 @@
 import { OptionModel } from "./option.model";
 
-export interface OptionsBatchModel {
+export interface OptionBatchModel {
   id: string;
   groupReference: string;
 

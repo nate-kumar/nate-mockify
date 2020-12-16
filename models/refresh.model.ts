@@ -1,6 +1,6 @@
 import { Moment } from "moment";
 
-export interface RefreshInterface {
+export interface RefreshModel {
   lastUpdated: Moment;
   loadingState: number;
   handler: () => void;

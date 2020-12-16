@@ -1,6 +1,6 @@
 import { RoleModel } from "./role.model";
 
-export interface RoleRequest {
+export interface RoleRequestModel {
   role?: RoleModel;
   roles?: RoleModel[];
 }

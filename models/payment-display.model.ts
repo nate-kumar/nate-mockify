@@ -1,6 +1,6 @@
 import { PaymentDisplayTypes } from "../_enums/payment-display.enum";
 
-export interface IPaymentDisplayModel {
+export interface PaymentDisplayModel {
   field: string;
   type?: PaymentDisplayTypes;
   rateFields?: string[];

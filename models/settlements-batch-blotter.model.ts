@@ -1,5 +1,5 @@
 import { OrderModel} from "./order.model";
-import { PaymentTableInterface } from "./payment-table.model";
+import { PaymentTableModel } from "./payment-table.model";
 import { OrderPersonModel } from "./order-person.model";
 
 export class SettlementsBatchBlotterModel {
@@ -8,7 +8,7 @@ export class SettlementsBatchBlotterModel {
   requestDateTime: string;
   purpose: string;
   orders?: OrderModel[];
-  payments?: PaymentTableInterface[];
+  payments?: PaymentTableModel[];
   currencies: SettlementsBatchBlotterModel[]; // Yet to be added
   state: string;
   sentState: string;

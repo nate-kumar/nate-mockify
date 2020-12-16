@@ -52,4 +52,5 @@ export interface PermissionActionsModel { // TODO should some of these be permis
   editCommission?: PermissionActionsModel;
   supportManage?: PermissionActionsModel;
   sysOps?: PermissionActionsModel;
+  ibanAssign?: PermissionActionsModel;
 }

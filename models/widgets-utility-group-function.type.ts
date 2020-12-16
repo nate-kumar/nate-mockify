@@ -1,1 +1,1 @@
-export type GroupFunction<T> = (item: T) => string;
+export type WidgetUtilitiesGroupFunctionType<T> = (item: T) => string;

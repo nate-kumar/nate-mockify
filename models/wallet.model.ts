@@ -1,4 +1,3 @@
-// -> Base model for a wallet response
 import { IbanModel } from "./iban.model";
 import { ContextMenuActionListItemModel } from './context-menu-action-list-item.model';
 import { TransactionModel } from "./wallet-transaction.model";

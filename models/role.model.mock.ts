@@ -1,7 +1,7 @@
 import { RoleModel } from "./role.model";
 
 
-export class RoleMock {
+export class RoleModelMock {
 
 
   // TODO: RS add permissions mock
@@ -16,43 +16,43 @@ export class RoleMock {
   };
 
 
-  public withId ( id: RoleModel[ 'id' ] ): RoleMock {
+  public withId ( id: RoleModel[ 'id' ] ): RoleModelMock {
     this._data.id = id;
 
     return this;
   }
 
-  public withName ( name: RoleModel[ 'name' ] ): RoleMock {
+  public withName ( name: RoleModel[ 'name' ] ): RoleModelMock {
     this._data.name = name;
 
     return this;
   }
 
-  public withUsers ( users: RoleModel[ 'users' ] ): RoleMock {
+  public withUsers ( users: RoleModel[ 'users' ] ): RoleModelMock {
     this._data.users = users;
 
     return this;
   }
   
-  public withPermissions ( permissions: RoleModel[ 'permissions' ] ): RoleMock {
+  public withPermissions ( permissions: RoleModel[ 'permissions' ] ): RoleModelMock {
     this._data.permissions = permissions;
 
     return this;
   }
 
-  public withIsSuspended ( isSuspended: RoleModel[ 'isSuspended' ] ): RoleMock {
+  public withIsSuspended ( isSuspended: RoleModel[ 'isSuspended' ] ): RoleModelMock {
     this._data.isSuspended = isSuspended;
 
     return this;
   }
 
-  public withActions ( actions: RoleModel[ 'actions' ] ): RoleMock {
+  public withActions ( actions: RoleModel[ 'actions' ] ): RoleModelMock {
     this._data.actions = actions;
 
     return this;
   }
 
-  public withType ( type: RoleModel[ 'type' ] ): RoleMock {
+  public withType ( type: RoleModel[ 'type' ] ): RoleModelMock {
     this._data.type = type;
 
     return this;

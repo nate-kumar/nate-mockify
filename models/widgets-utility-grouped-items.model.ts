@@ -1,4 +1,4 @@
-export interface GroupedItemsModel<T> {
+export interface WidgetUtilitiesGroupedItemsModel<T> {
   pendingItems: T[];
   completeItems: T[];
 }

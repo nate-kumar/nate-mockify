@@ -1,3 +1,3 @@
-export interface ApiPreferenceModel {
+export interface PreferenceModel {
   [ key: string ]: any
 }

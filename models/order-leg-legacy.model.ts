@@ -1,9 +1,9 @@
 import { OrderCurrencyAmountBaseModel } from "./order-currency-amount-base.model";
 import { PaymentAccountModel } from "./payment-account.model";
 import { PaymentToModel } from "./payment-to.model";
-import { PaymentInterface } from "./payments.model";
+import { PaymentModel } from "./payments.model";
 
-export class OrderLegModel2 {
+export class OrderLegLegacyModel {
   pipSize: number;
   bid: number;
   ask: number;
@@ -43,5 +43,5 @@ export class OrderLegModel2 {
   payToOption?: string;
   payTo?: PaymentToModel[];
   showMultiplePayments?: boolean;
-  payments: PaymentInterface[];
+  payments: PaymentModel[];
 }

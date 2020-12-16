@@ -1,7 +1,7 @@
 import { DateModel } from "./date.model";
 import { Moment } from 'moment';
 import { ContextMenuActionListItemModel } from './context-menu-action-list-item.model';
-import { NeoCommissionModel } from "./order-commission.model";
+import { OrderCommissionModel } from "./order-commission.model";
 import { OrderM2MModel } from "./order-m2m.model";
 import { OrderCorpModel } from "./order-corp.model";
 import { OrderMarginModel } from "./order-margin.model";
@@ -21,7 +21,7 @@ export class OrderModel {
   lastUpdated: Moment;
   margin?: OrderMarginModel;
   clientOrderId: string;
-  commission: NeoCommissionModel;
+  commission: OrderCommissionModel;
   buyAmount: OrderAmountModel;
   sellAmount: OrderAmountModel;
   confirmationDocument?: OrderConfirmationDocumentModel;

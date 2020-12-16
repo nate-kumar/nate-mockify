@@ -1,6 +1,6 @@
-import { PaymentTableInterface } from "./payment-table.model";
+import { PaymentTableModel } from "./payment-table.model";
 
-export interface PaymentRowModel extends PaymentTableInterface {
+export interface PaymentRowModel extends PaymentTableModel {
   isCheckboxHidden?: boolean;
   checked?: boolean;
 }

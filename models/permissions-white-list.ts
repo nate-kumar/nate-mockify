@@ -3,7 +3,7 @@ import { PermissionActionEnum } from "../_enums/permissions.enum";
 /* HOW TO ADD NEW PERMISSIONS
  *  1) Adding a new permission Group:
  *  - Add permission group to 'PermissionsModel' with type 'PermissionActionsModel' e.g `newPermissionsGroup?: PermissionActionsModel;`
- *  - Add Permission group and all it's corresponding actions to the 'activePermissionsMap' (Use only actions from 'PermissionActionEnum')
+ *  - Add Permission group and all it's corresponding actions to the 'permissionsWhiteList' (Use only actions from 'PermissionActionEnum')
  *  e.g
  *  ```
  *  newPermissionsGroup: [
@@ -17,7 +17,7 @@ import { PermissionActionEnum } from "../_enums/permissions.enum";
  *  - Add to action to PermissionActionsModel e.g `newAction?: PermissionOptionsModel`;
  */
 
-export const activePermissionsMap: { [key: string]: string[] } = { // TODO indentation and new file?
+export const permissionsWhiteList: { [key: string]: string[] } = { // TODO indentation and new file?
   iban: [
     PermissionActionEnum.view
   ],

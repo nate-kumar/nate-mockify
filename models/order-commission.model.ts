@@ -1,5 +1,5 @@
 import { OrderCurrencyAmountBaseModel } from "./order-currency-amount-base.model";
 
-export interface NeoCommissionModel extends OrderCurrencyAmountBaseModel {
+export interface OrderCommissionModel extends OrderCurrencyAmountBaseModel {
   commissionPcnt: number;
 }

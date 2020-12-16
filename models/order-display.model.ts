@@ -1,6 +1,6 @@
 import { OrderDisplayTypes } from "../_enums/order-preview.enum";
 
-export interface IOrderDisplayModel {
+export interface OrderDisplayModel {
   field: string;
   type?: OrderDisplayTypes;
   rateFields?: string[];

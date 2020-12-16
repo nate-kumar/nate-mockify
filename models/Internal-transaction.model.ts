@@ -1,4 +1,4 @@
-import { AccountModel } from "./reconciliation-account.model";
+import { ReconciliationAccountModel } from "./reconciliation-account.model";
 import { OrderCurrencyAmountModel } from "./order-currency-amount.model";
 import { OrderCorpModel } from "./order-corp.model";
 
@@ -6,8 +6,8 @@ export interface InternalTransactionModel {
   actions?: string[];
   id: string;
   state: string;
-  sourceAccount: AccountModel;
-  targetAccount: AccountModel;
+  sourceAccount: ReconciliationAccountModel;
+  targetAccount: ReconciliationAccountModel;
   clientOrderId: string;
   amount: OrderCurrencyAmountModel;
   reference: string;
