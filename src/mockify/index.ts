@@ -16,7 +16,7 @@ export function mockify( _options: Schema ): Rule {
     context: SchematicContext
   ) => {
     const modelsFolderUrl: string = _options.modelsFolderUrl || './models/';
-    const mocksFolderUrl: string = _options.mocksFolderUrl || './mocks/'
+    const mocksFolderUrl: string = _options.mocksFolderUrl || './models/mocks/'
     const overwriteExisting: boolean = _options.overwriteExisting || false;
     const rulesFullModelFolder: Rule[] = []
 
@@ -50,8 +50,7 @@ export function mockify( _options: Schema ): Rule {
                 overwriteExisting
               }
 
-            const rulesMockifyFile: Rule =
-              mockifyFile( mockifyConfig )
+            const rulesMockifyFile: Rule = mockifyFile( mockifyConfig )
             rulesFullModelFolder.push( rulesMockifyFile )
           }
         }
@@ -73,8 +72,9 @@ export function mockifyFile( mockifyConfig: MockifyModel ): Rule {
       overwriteExisting      
     } = mockifyConfig;
 
+    const mockFileSegmentUrl = fileSegmentUrl.replace( '.ts', '.mock.ts' )
     const modelUrl: string = `${ modelsFolderUrl }${ fileSegmentUrl }`;
-    const mockUrl: string = `${ mocksFolderUrl }${ fileSegmentUrl }`;
+    const mockUrl: string = `${ mocksFolderUrl }${ mockFileSegmentUrl }`;
 
     const modelFileText: string = tree.read( modelUrl )?.toString() || '';
 
