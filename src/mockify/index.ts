@@ -22,8 +22,10 @@ export function mockify( _options: Schema ): Rule {
       .getDir( modelsFolderUrl )
       .visit( 
         ( modelFileUrl: Path ) => {
-          const rulesFullModelFile: Rule = mockifyFile( modelFileUrl )
-          rulesFullModelFolder.push( rulesFullModelFile )
+          if ( modelFileUrl.includes( '.model.ts' ) ) {
+            const rulesFullModelFile: Rule = mockifyFile( modelFileUrl )
+            rulesFullModelFolder.push( rulesFullModelFile )
+          }
         }
       )
 
@@ -49,6 +51,7 @@ export function mockifyFile( modelUrl: string ): Rule {
 
     if (
       className
+      && keys
       && keys?.length > 0
     ) {
       if ( tree.exists( mockUrl ) ) {
