@@ -12,7 +12,7 @@ import { Path } from '@angular-devkit/core';
 export function mockify( _options: Schema ): Rule {
   return (
     tree: Tree,
-    _context: SchematicContext
+    context: SchematicContext
   ) => {
     const modelsFolderUrl: string = _options.modelsFolderUrl || './models';
 
@@ -27,14 +27,14 @@ export function mockify( _options: Schema ): Rule {
         }
       )
 
-    return chain( rulesFullModelFolder )( tree, _context )
+    return chain( rulesFullModelFolder )( tree, context )
   }
 }
 
 export function mockifyFile( modelUrl: string ): Rule {
   return (
     tree: Tree,
-    _context: SchematicContext
+    context: SchematicContext
   ) => {
     const mockUrl: string =
       modelUrl
@@ -71,7 +71,7 @@ export function mockifyFile( modelUrl: string ): Rule {
           ruleCloseCurlyBrace
         ]
 
-      return chain( rulesFullModelFile )( tree, _context )
+      return chain( rulesFullModelFile )( tree, context )
     }
     else {
       return tree

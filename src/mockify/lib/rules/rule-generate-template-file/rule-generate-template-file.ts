@@ -6,7 +6,7 @@ import { GenerateTemplateModel } from "../../../models/generate-template.model";
 export function generateTemplateFile( _options: GenerateTemplateModel ): Rule {
   return (
     tree: Tree,
-    _context: SchematicContext
+    context: SchematicContext
   ) => {
     const {
       templateUrl,
@@ -28,7 +28,7 @@ export function generateTemplateFile( _options: GenerateTemplateModel ): Rule {
         ]
       )
 
-    return mergeWith( sourceParametrizedTemplates )( tree, _context );
+    return mergeWith( sourceParametrizedTemplates )( tree, context );
   }
 }
 
