@@ -9,7 +9,7 @@ import { generateTemplateFile } from "../rule-generate-template-file/rule-genera
 
 export function addCodeFromTemplate( _options: AddCodeFromTemplateModel ): Rule {
   return (
-    tree: Tree,
+    _tree: Tree,
     _context: SchematicContext
   ) => {
 
@@ -44,8 +44,6 @@ export function addCodeFromTemplate( _options: AddCodeFromTemplateModel ): Rule 
         appendToFile( appendToFileConfig ),
         deleteFile( deleteFileConfig )
       ]
-
-    tree
 
     return chain( rules );
   };

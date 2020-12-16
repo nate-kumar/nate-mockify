@@ -9,7 +9,7 @@ export function buildDefaultDataRule(
   keys: string[]
 ): Rule {
   return (
-    tree: Tree,
+    _tree: Tree,
     _context: SchematicContext
   ) => {
 
@@ -25,9 +25,6 @@ export function buildDefaultDataRule(
 
     const defaultDataCloseCurlyBraceRule: Rule = getDefaultDataCloseCurlyBraceRule( mockUrl );
     rulesFullModelFile.push( defaultDataCloseCurlyBraceRule )
-
-    // TODO remove
-    tree
     
     return chain( rulesFullModelFile );
   };

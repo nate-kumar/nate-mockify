@@ -9,7 +9,7 @@ export function buildWithBlocksRule(
   keys: string[]
 ): Rule {
   return (
-    tree: Tree,
+    _tree: Tree,
     _context: SchematicContext
   ) => {
 
@@ -32,9 +32,6 @@ export function buildWithBlocksRule(
 
       rulesAllWithBlocks.push( addCodeFromTemplate( addCodeFromTemplateConfig ) )
     }
-
-    // TODO remove
-    tree
     
     return chain( rulesAllWithBlocks );
   };

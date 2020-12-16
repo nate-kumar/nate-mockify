@@ -5,7 +5,7 @@ import { addCodeFromTemplate } from "../rule-add-code-from-template/rule-add-cod
 
 export function buildCloseCurlyBraceRule( mockUrl: string ): Rule {
   return (
-    tree: Tree,
+    _tree: Tree,
     _context: SchematicContext
   ) => {
     const addCodeFromTemplateConfig: AddCodeFromTemplateModel =
@@ -16,8 +16,6 @@ export function buildCloseCurlyBraceRule( mockUrl: string ): Rule {
           numLineBreaksBefore: 1
         }
       }
-
-    tree
 
     return addCodeFromTemplate( addCodeFromTemplateConfig )
   };

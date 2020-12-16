@@ -11,7 +11,7 @@ export function buildExportClassRule(
   className: string
 ): Rule {
   return (
-    tree: Tree,
+    _tree: Tree,
     _context: SchematicContext
   ) => {
     const addCodeFromTemplateConfig: AddCodeFromTemplateModel =
@@ -26,8 +26,6 @@ export function buildExportClassRule(
           numLineBreaksAfter: 2
         }
       }
-
-    tree
 
     return addCodeFromTemplate( addCodeFromTemplateConfig )
   }

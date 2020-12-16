@@ -10,7 +10,7 @@ export function buildModelFunctionRule(
   className: string
 ): Rule {
   return (
-    tree: Tree,
+    _tree: Tree,
     _context: SchematicContext
   ) => {
     const addCodeFromTemplateConfig: AddCodeFromTemplateModel =
@@ -25,9 +25,6 @@ export function buildModelFunctionRule(
           numLineBreaksAfter: 1
         }
       }
-
-    // TODO remove
-    tree
     
     return addCodeFromTemplate( addCodeFromTemplateConfig );
   };
