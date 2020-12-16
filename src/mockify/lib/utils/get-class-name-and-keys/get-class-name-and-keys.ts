@@ -13,10 +13,16 @@ export function getClassNameAndKeys( modelFileText: string ) {
   }: SegmentsModel = getSegmentsFromModelLines( linesOfCodeArray );
 
   // Get interface name in camel case, e.g. DateModel
-  const className: string = getClassName( lineExportInterface ) || '';
+  const classNameWithPotentialErrors: string = getClassName( lineExportInterface ) || '';
+  const className: string = handleClassNameErrors( classNameWithPotentialErrors );
 
   // Get all keys from model
-  const keys: string[] = getModelKeys( linesOfKeys );
+  const keysWithPotentialErrors: string[] = getModelKeys( linesOfKeys );
+  const keys: string[] =
+    handleKeysErrors(
+      className,
+      keysWithPotentialErrors
+    );
 
   const classNameAndKeys: ClassNameAndKeysModel =
     {
@@ -27,7 +33,7 @@ export function getClassNameAndKeys( modelFileText: string ) {
   return classNameAndKeys;
 }
 
-function getSegmentsFromModelLines( linesOfCodeArray: string[] ) {
+function getSegmentsFromModelLines( linesOfCodeArray: string[] ): SegmentsModel {
   const indexExportInterfaceOriginal: number =
     linesOfCodeArray
       ?.findIndex(
@@ -78,7 +84,7 @@ function getSegmentsFromModelLines( linesOfCodeArray: string[] ) {
   return segments;
 }
 
-function getClassName( lineExportInterface: string ) {
+function getClassName( lineExportInterface: string ): string {
   const patternInterface: string = 'interface ';
   const patternClass: string = 'class ';
   const patternOpenCurlyBrace: string = '{'
@@ -104,6 +110,16 @@ function getClassName( lineExportInterface: string ) {
 
     return classNameCamelCase;
   }
+
+  return ''
+}
+
+function handleClassNameErrors( classNameWithErrors: string ): string {
+  if ( classNameWithErrors === '' ) {
+    console.warn( 'Class name is empty' )
+  }
+
+  return classNameWithErrors
 }
 
 function getModelKeys( linesOfKeys: string[] ): string[] {
@@ -154,6 +170,25 @@ function getKey( lineOfKey: string ) {
       )
 
   return key;
+}
+
+function handleKeysErrors(
+  className: string,
+  keysWithPotentialErrors: string[]
+): string[] {
+  if ( keysWithPotentialErrors.length === 0 ) {
+    console.warn( `Mock creation failed for ${ className }: Keys are empty, check for nested objects` )
+  }
+
+  if ( keysWithPotentialErrors.includes( '[key' ) ) {
+    console.warn( `Mock creation failed for ${ className }: Generic keys used, explicit key names required` )
+    return keysWithPotentialErrors
+      ?.filter(
+        ( key: string ) => key !== '[key'
+      )
+  }
+
+  return keysWithPotentialErrors;
 }
 
 module.exports;

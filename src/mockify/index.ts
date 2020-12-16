@@ -47,26 +47,35 @@ export function mockifyFile( modelUrl: string ): Rule {
       keys
     } = getClassNameAndKeys( modelFileText );
 
-    if ( tree.exists( mockUrl ) ) {
-      tree.delete( mockUrl )
+    if (
+      className
+      && keys?.length > 0
+    ) {
+      if ( tree.exists( mockUrl ) ) {
+        tree.delete( mockUrl )
+      }
+      tree.create( mockUrl, '' )
+
+      const ruleExportClass: Rule = buildExportClassRule( mockUrl, className );
+      const ruleDefaultData: Rule = buildDefaultDataRule( mockUrl, className, keys );
+      const ruleWithBlocks: Rule = buildWithBlocksRule( mockUrl, className, keys );
+      const ruleModelFunction: Rule = buildModelFunctionRule( mockUrl, className );
+      const ruleCloseCurlyBrace: Rule = buildCloseCurlyBraceRule( mockUrl );
+
+      const rulesFullModelFile: Rule[] =
+        [
+          ruleExportClass,
+          ruleDefaultData,
+          ruleWithBlocks,
+          ruleModelFunction,
+          ruleCloseCurlyBrace
+        ]
+
+      return chain( rulesFullModelFile )( tree, _context )
     }
-    tree.create( mockUrl, '' )
+    else {
+      return tree
+    }
 
-    const ruleExportClass: Rule = buildExportClassRule( mockUrl, className );
-    const ruleDefaultData: Rule = buildDefaultDataRule( mockUrl, className, keys );
-    const ruleWithBlocks: Rule = buildWithBlocksRule( mockUrl, className, keys );
-    const ruleModelFunction: Rule = buildModelFunctionRule( mockUrl, className );
-    const ruleCloseCurlyBrace: Rule = buildCloseCurlyBraceRule( mockUrl );
-
-    const rulesFullModelFile: Rule[] =
-      [
-        ruleExportClass,
-        ruleDefaultData,
-        ruleWithBlocks,
-        ruleModelFunction,
-        ruleCloseCurlyBrace
-      ]
-
-    return chain( rulesFullModelFile )( tree, _context )
   }
 }
