@@ -9,22 +9,37 @@ export function getClassNameAndKeys( modelFileText: string ) {
   // Split code into sections of interest
   const {
     lineExportInterface,
-    linesOfKeys
+    linesOfKeys,
+    fileErrors
   }: SegmentsModel = getSegmentsFromModelLines( linesOfCodeArray );
 
-  // Get interface name in camel case, e.g. DateModel
-  const classNameWithPotentialErrors: string = getClassName( lineExportInterface ) || '';
-  const className: string = handleClassNameErrors( classNameWithPotentialErrors );
+  let classNameAndKeys: ClassNameAndKeysModel;
+  let className: string = '';
+  let keys: string[] | null = null;
 
-  // Get all keys from model
-  const keysWithPotentialErrors: string[] = getModelKeys( linesOfKeys );
-  const keys: string[] =
-    handleKeysErrors(
-      className,
-      keysWithPotentialErrors
-    );
+  if ( lineExportInterface ) {
+    // Get interface name in camel case, e.g. DateModel
+    const classNameWithPotentialErrors: string = getClassName( lineExportInterface ) || '';
+    className = handleClassNameErrors( classNameWithPotentialErrors );
+  }
 
-  const classNameAndKeys: ClassNameAndKeysModel =
+  if ( fileErrors?.length ) {
+    handleFileErrors(
+      fileErrors,
+      className
+    )
+  }
+  else if ( linesOfKeys.length > 0 ) {
+    // Get all keys from model
+    const keysWithPotentialErrors: string[] = getModelKeys( linesOfKeys );
+    keys =
+      handleKeysErrors(
+        className,
+        keysWithPotentialErrors
+      );
+  }
+
+  classNameAndKeys =
     {
       className,
       keys
@@ -34,6 +49,21 @@ export function getClassNameAndKeys( modelFileText: string ) {
 }
 
 function getSegmentsFromModelLines( linesOfCodeArray: string[] ): SegmentsModel {
+  let segments: SegmentsModel =
+    {
+      lineExportInterface: '',
+      linesOfKeys: [],
+      lineCloseCurlyBrace: '',
+      fileErrors: null
+    };
+  
+  const indexOfConstructor: number =
+    linesOfCodeArray
+      ?.findIndex(
+        ( line: string ) => line.includes( 'constructor' )
+      )
+  const hasConstructor: boolean = indexOfConstructor !== -1
+
   const indexExportInterfaceOriginal: number =
     linesOfCodeArray
       ?.findIndex(
@@ -47,6 +77,13 @@ function getSegmentsFromModelLines( linesOfCodeArray: string[] ): SegmentsModel 
       ?.slice(
         indexExportInterfaceOriginal
       )
+      ?.filter(
+        ( line: string ) => {
+          const trimmed = line.trim();
+          return trimmed.length > 0
+            && trimmed.substring( 0, 1 ) !== '/'
+        }
+      )
 
   const indexExportInterface: number =
     linesOfCodeArray
@@ -56,6 +93,7 @@ function getSegmentsFromModelLines( linesOfCodeArray: string[] ): SegmentsModel 
           || line.includes( 'class ' )
       );
   const lineExportInterface: string = linesOfCodeArray[ indexExportInterface ];
+  segments.lineExportInterface = lineExportInterface;
 
   const indexCloseCurlyBrace: number =
     linesOfCodeArray
@@ -63,25 +101,36 @@ function getSegmentsFromModelLines( linesOfCodeArray: string[] ): SegmentsModel 
         ( line: string ) => line.includes( '}' )
       );
   const lineCloseCurlyBrace: string = linesOfCodeArray[ indexCloseCurlyBrace ];
+  segments.lineCloseCurlyBrace = lineCloseCurlyBrace;
 
-  const indexStartOfKeys: number = indexExportInterface + 1;
-  const indexEndOfKeys: number = indexCloseCurlyBrace - 1;
+  if ( hasConstructor ) {
+    segments.linesOfKeys = []
+    segments.fileErrors = [ 'constructor' ]
+  }
+  else {
+    const indexStartOfKeys: number = indexExportInterface + 1;
+    const indexEndOfKeys: number = indexCloseCurlyBrace - 1;
 
-  const linesOfKeys: string[] =
-    linesOfCodeArray
-      .splice(
-        indexStartOfKeys,
-        indexEndOfKeys
-      )
-
-  const segments: SegmentsModel =
-    {
-      lineExportInterface,
-      linesOfKeys,
-      lineCloseCurlyBrace
-    }
+    const linesOfKeys: string[] =
+      linesOfCodeArray
+        .splice(
+          indexStartOfKeys,
+          indexEndOfKeys
+        )
+    segments.linesOfKeys = linesOfKeys
+  }
 
   return segments;
+}
+
+// TODO move to error handling utils file
+function handleFileErrors( 
+  fileErrors: string[],
+  className?: string
+) {
+  if ( fileErrors.includes( 'constructor' ) ) {
+    console.warn( `Mock creation failed for ${ className }: Constructor present in model file` )
+  }
 }
 
 function getClassName( lineExportInterface: string ): string {
