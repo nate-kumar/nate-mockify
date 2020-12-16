@@ -1,6 +1,6 @@
-import { NeoUserInviteDetailsModel } from './accept-invite-details.model';
+import { AcceptInviteDetailsModel } from './accept-invite-details.model';
 
-export interface NeoInviteResponseObject {
+export interface AcceptInviteResponseModel {
   status: number;
-  body?: NeoUserInviteDetailsModel;
+  body?: AcceptInviteDetailsModel;
 }

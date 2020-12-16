@@ -1,6 +1,6 @@
 import { SuggestedActionsButton } from "../components/neo-suggested-actions-prompt/suggested-actions-button.model";
 
-export interface NeoActionPromptUploaderModel {
+export interface ActionPromptUploaderModel {
   title?: string;
   uploadUrl: string;
   supportedFileTypes?: string[];

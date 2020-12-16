@@ -1,0 +1,40 @@
+import { OrderCurrencyAmountModel } from "./order-currency-amount.model";
+import { OrderModel} from "./order.model";
+import { OrderRateModel } from "./order-rate.model";
+import { OrderMarginModel } from "./order-margin.model";
+import { OrderAccountModel } from "./order-account.model";
+
+export interface OrderTableModel extends OrderModel {
+  tenor: string;
+  symbol: string;
+  buySell: string;
+  buyCcy: string;
+  amountBought: OrderCurrencyAmountModel;
+  lpBuyAmount: OrderCurrencyAmountModel;
+  sellCcy: string;
+  amountSold: OrderCurrencyAmountModel;
+  lpSellAmount: OrderCurrencyAmountModel;
+  rateTraded: OrderRateModel;
+  lpTradeRate: OrderRateModel;
+  valueDate: string;
+  nearLegBuyCcy: string;
+  nearLegAmountBought: OrderCurrencyAmountModel;
+  nearLegLpBuyAmount: OrderCurrencyAmountModel;
+  nearLegSellCcy: string;
+  nearLegAmountSold: OrderCurrencyAmountModel;
+  nearLegLpSellAmount: OrderCurrencyAmountModel;
+  nearLegRateTraded: OrderRateModel;
+  nearLegLpTradeRate: OrderRateModel;
+  nearLegValueDate: string;
+  allInRate: OrderRateModel;
+  lastFixingRate: OrderRateModel;
+  originAccount: OrderAccountModel;
+  destinationAccount: OrderAccountModel;
+  nearLegOriginAccount: OrderAccountModel;
+  nearLegDestinationAccount: OrderAccountModel;
+  venueTradeId: string;
+  venueName: string;
+  lpName: string;
+  lpTradeId: string;
+  margin: OrderMarginModel;
+}

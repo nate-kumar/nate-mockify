@@ -3,7 +3,7 @@ import { CurrencySelectOptionModel } from "./currencies-select-option.model";
 import { AccountReferencePriorityModel } from "./account-reference-priority.model";
 
 
-export interface AccountReferenceDataModel {
+export interface AccountReferenceModel {
   paymentNetworks: { value: string }[];
   priorities: AccountReferencePriorityModel[];
   charges: { value: string }[];

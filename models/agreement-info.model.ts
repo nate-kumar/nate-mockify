@@ -1,6 +1,6 @@
-import { NeoDateModel } from "./neo-date.model";
+import { DateModel } from "./date.model";
 
 export interface AgreementInfoModel {
   frameworkAgreementNumber: string;
-  signingDate: NeoDateModel | Date;
+  signingDate: DateModel | Date;
 }

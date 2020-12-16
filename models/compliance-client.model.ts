@@ -1,6 +1,6 @@
-import { OnboardingModel } from "./compliance-onboarding.model";
+import { ComplianceOnboardingModel } from "./compliance-onboarding.model";
 
 export interface ComplianceClientModel {
   section: string;
-  clients: OnboardingModel[];
+  clients: ComplianceOnboardingModel[];
 }

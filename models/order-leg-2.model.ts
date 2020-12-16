@@ -1,0 +1,47 @@
+import { OrderCurrencyAmountBaseModel } from "./order-currency-amount-base.model";
+import { PaymentAccountModel } from "./payment-account.model";
+import { PaymentToModel } from "./payment-to.model";
+import { PaymentInterface } from "./payments.model";
+
+export class OrderLegModel2 {
+  pipSize: number;
+  bid: number;
+  ask: number;
+  bidForwardPoints: number;
+  askForwardPoints: number;
+  ccy1?: string;
+  ccy2?: string;
+  ccyBuy?: string;
+  ccySell?: string;
+  amount: number;
+  amountBuy?: OrderCurrencyAmountBaseModel;
+  amountSell?: OrderCurrencyAmountBaseModel;
+  tenor: string;
+  valueDate: string;
+  clientReference: string;
+  useDefaultWallets: boolean;
+  clientOrderId?: string;
+  executed?: boolean;
+  settled?: boolean;
+  action?: string;
+  buyAmount?: number;
+  sellAmount?: number;
+  forwardType?: string;
+  dateFieldPriority?: string;
+  allInRate?: number;
+  exchangeRate?: number;
+  commissionAmount?: number;
+  totalSettlement?: number;
+  totalPayment?: number;
+  forwardPoints?: number;
+  settlementCutoff: string;
+  settlementDate?: string;
+  commission?: number;
+  quotedRate?: number;
+  payFromOption?: string;
+  payFrom?: PaymentAccountModel[];
+  payToOption?: string;
+  payTo?: PaymentToModel[];
+  showMultiplePayments?: boolean;
+  payments: PaymentInterface[];
+}

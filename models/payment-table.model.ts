@@ -1,0 +1,41 @@
+import { CorpAddressModel } from "./corp-address.model";
+import { SimpleStatusEnum } from "../_enums/widget-config.enum";
+import { PaymentInterface } from "./payments.model";
+import { OrderPersonModel } from "./order-person.model";
+
+export interface PaymentTableInterface extends PaymentInterface {
+  operatorName: string;
+  bookedOrderDate: string;
+  sourceBankAccountOwner: OrderPersonModel;
+  sourceAddress: CorpAddressModel;
+  sourceBankId: string;
+  sourceBankAccountName: string;
+  sourceBankName: string;
+  sourceBankNumber: string;
+  sourceBankType: string;
+  sourceBankCountry: string;
+  sourceBankIBAN: string;
+  sourceBankBIC: string;
+  sourceAdditionalInformation: string;
+  origin: OrderPersonModel;
+  beneficiary: OrderPersonModel;
+  bookedOrderTime: string;
+  destinationBankAddress: CorpAddressModel;
+  destinationBankOwner: OrderPersonModel;
+  destinationBankId: string;
+  destinationBankName: string;
+  destinationBankNumber: string;
+  destinationBankType: string;
+  destinationBankCountry: string;
+  destinationBankIBAN: string;
+  destinationBankBIC: string;
+  paymentCurrency: string;
+  destinationBankAccountName: string;
+  intermediary: string;
+  intermediaryAlias: string;
+  intermediaryIBAN: string;
+  intermediaryBIC: string;
+  intermediaryBankCountry: string;
+  intermediaryBankName: string;
+  simpleState?: SimpleStatusEnum;
+}
