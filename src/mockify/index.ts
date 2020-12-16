@@ -6,6 +6,7 @@ import { buildDefaultDataRule } from './lib/rules/rule-default-data/rule-default
 import { buildModelFunctionRule } from './lib/rules/rule-model-function/rule-model-function'
 import { buildCloseCurlyBraceRule } from './lib/rules/rule-close-curly-brace/rule-close-curly-brace'
 import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
+import { getFilesFromDirectorySync } from './lib/utils/get-files-from-directory/get-files-from-directory'
 
 
 export function mockify( _options: Schema ): Rule {
@@ -13,11 +14,8 @@ export function mockify( _options: Schema ): Rule {
     tree: Tree,
     _context: SchematicContext
   ) => {
-    const modelUrls =
-      [
-        './models/main-menu.model.ts',
-        './models/neo-date.model.ts'
-      ]
+    const modelsFolderUrl: string = _options.modelsFolderUrl || './models';
+    const modelUrls: string[] = getFilesFromDirectorySync( modelsFolderUrl )
 
     let rulesFullModelFolder: Rule[] = []
 
@@ -35,14 +33,16 @@ export function mockifyFile( modelUrl: string ) {
     tree: Tree,
     _context: SchematicContext
   ) => {
-    // const modelUrl: string = './models/main-menu.model.ts'
-    const mockUrl: string = modelUrl.replace( 'models', 'mocks' ).replace( '.ts', '.mock.ts' )
+    const mockUrl: string =
+      modelUrl
+        .replace( 'models', 'mocks' )
+        .replace( '.ts', '.mock.ts' );
     
-    const modelFileBuffer: Buffer = tree.read( modelUrl ) || Buffer.from( '' );
+    const modelFileText: string = tree.read( modelUrl )?.toString() || '';
     const {
       className,
       keys
-    } = getClassNameAndKeys( modelFileBuffer );
+    } = getClassNameAndKeys( modelFileText );
 
     if ( tree.exists( mockUrl ) ) {
       tree.delete( mockUrl )

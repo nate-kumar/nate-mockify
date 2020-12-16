@@ -1,9 +1,9 @@
 import { ClassNameAndKeysModel } from '../../../models/template-variables.model';
 import { SegmentsModel } from './../../../models/segments.model';
 
-export function getClassNameAndKeys( modelFileBuffer: Buffer ) {
+export function getClassNameAndKeys( modelFileText: string ) {
   // Get code as string from .model.ts file
-  const modelFileBufferString: string = modelFileBuffer.toString();
+  const modelFileBufferString: string = modelFileText.toString();
   const linesOfCodeArray: string[] = modelFileBufferString.split( '\r\n' );
 
   // Split code into sections of interest
