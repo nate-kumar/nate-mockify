@@ -38,10 +38,7 @@ export function mockifyFile( modelUrl: string ): Rule {
     tree: Tree,
     context: SchematicContext
   ) => {
-    const mockUrl: string =
-      modelUrl
-        .replace( 'models', 'mocks' )
-        .replace( '.ts', '.mock.ts' );
+    const mockUrl: string = getMockUrl( modelUrl );
     
     const modelFileText: string = tree.read( modelUrl )?.toString() || '';
     const {
@@ -50,35 +47,51 @@ export function mockifyFile( modelUrl: string ): Rule {
     } = getClassNameAndKeys( modelFileText );
 
     if (
-      className
-      && keys
-      && keys?.length > 0
+      !className
+      || !keys
     ) {
-      if ( tree.exists( mockUrl ) ) {
-        tree.delete( mockUrl )
-      }
-      tree.create( mockUrl, '' )
-
-      const ruleExportClass: Rule = buildExportClassRule( mockUrl, className );
-      const ruleDefaultData: Rule = buildDefaultDataRule( mockUrl, className, keys );
-      const ruleWithBlocks: Rule = buildWithBlocksRule( mockUrl, className, keys );
-      const ruleModelFunction: Rule = buildModelFunctionRule( mockUrl, className );
-      const ruleCloseCurlyBrace: Rule = buildCloseCurlyBraceRule( mockUrl );
-
-      const rulesFullModelFile: Rule[] =
-        [
-          ruleExportClass,
-          ruleDefaultData,
-          ruleWithBlocks,
-          ruleModelFunction,
-          ruleCloseCurlyBrace
-        ]
-
-      return chain( rulesFullModelFile )( tree, context )
-    }
-    else {
       return tree
     }
 
+    createBlankFile(
+      tree,
+      mockUrl
+    )
+
+    const ruleExportClass: Rule = buildExportClassRule( mockUrl, className );
+    const ruleDefaultData: Rule = buildDefaultDataRule( mockUrl, className, keys );
+    const ruleWithBlocks: Rule = buildWithBlocksRule( mockUrl, className, keys );
+    const ruleModelFunction: Rule = buildModelFunctionRule( mockUrl, className );
+    const ruleCloseCurlyBrace: Rule = buildCloseCurlyBraceRule( mockUrl );
+
+    const rulesFullModelFile: Rule[] =
+      [
+        ruleExportClass,
+        ruleDefaultData,
+        ruleWithBlocks,
+        ruleModelFunction,
+        ruleCloseCurlyBrace
+      ]
+
+    return chain( rulesFullModelFile )( tree, context )
   }
+}
+
+function getMockUrl( modelUrl: string ) {
+  const mockUrl: string =
+    modelUrl
+      .replace( 'models', 'mocks' )
+      .replace( '.ts', '.mock.ts' );
+  
+  return mockUrl
+}
+
+function createBlankFile(
+  tree: Tree,
+  mockUrl: string
+) {
+  if ( tree.exists( mockUrl ) ) {
+    tree.delete( mockUrl )
+  }
+  tree.create( mockUrl, '' )
 }
