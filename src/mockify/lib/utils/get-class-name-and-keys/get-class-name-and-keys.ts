@@ -1,4 +1,5 @@
 import { ClassNameAndKeysModel } from '../../../models/template-variables.model';
+import { consoleWarning } from '../console-warnings/console-warnings';
 import { SegmentsModel } from './../../../models/segments.model';
 
 export function getClassNameAndKeys( modelFileText: string ) {
@@ -129,7 +130,11 @@ function handleFileErrors(
   className?: string
 ) {
   if ( fileErrors.includes( 'constructor' ) ) {
-    console.warn( `Mock creation failed for ${ className }: Constructor present in model file` )
+    consoleWarning(
+      'SKIPPED',
+      'constructor',
+      [ className || '' ]
+    )
   }
 }
 
@@ -165,7 +170,11 @@ function getClassName( lineExportInterface: string ): string {
 
 function handleClassNameErrors( classNameWithErrors: string ): string {
   if ( classNameWithErrors === '' ) {
-    console.warn( 'Class name is empty' )
+    consoleWarning(
+      'SKIPPED',
+      'class-name-empty',
+      []
+    )
   }
 
   return classNameWithErrors
@@ -226,11 +235,20 @@ function handleKeysErrors(
   keysWithPotentialErrors: string[]
 ): string[] {
   if ( keysWithPotentialErrors.length === 0 ) {
-    console.warn( `Mock creation failed for ${ className }: Keys are empty, check for nested objects` )
+    consoleWarning(
+      'SKIPPED',
+      'keys-empty',
+      [ className ]
+    )
   }
 
   if ( keysWithPotentialErrors.includes( '[key' ) ) {
-    console.warn( `Mock creation failed for ${ className }: Generic keys used, explicit key names required` )
+    consoleWarning(
+      'SKIPPED',
+      'generic-keys',
+      [ className ]
+    )
+    
     return keysWithPotentialErrors
       ?.filter(
         ( key: string ) => key !== '[key'

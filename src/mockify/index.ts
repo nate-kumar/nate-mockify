@@ -8,6 +8,7 @@ import { buildDefaultDataRule } from './lib/rules/rule-default-data/rule-default
 import { buildModelFunctionRule } from './lib/rules/rule-model-function/rule-model-function'
 import { buildCloseCurlyBraceRule } from './lib/rules/rule-close-curly-brace/rule-close-curly-brace'
 import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
+import { consoleWarning } from './lib/utils/console-warnings/console-warnings';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -92,7 +93,11 @@ export function mockifyFile( mockifyConfig: MockifyModel ): Rule {
 
     if ( tree.exists( mockUrl ) ) {
       if ( !overwriteExisting ) {
-        console.warn( `Existing ${ modelUrl } was not overwritten` )
+        consoleWarning(
+          'SKIPPED',
+          'not-overwritten',
+          [ className || '' ]
+        )
         return tree
       }
       else {
