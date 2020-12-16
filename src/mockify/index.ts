@@ -21,9 +21,8 @@ export function mockify( _options: Schema ): Rule {
     tree
       .getDir( modelsFolderUrl )
       .visit( 
-        ( path: Path ) => {
-          console.log( path )
-          const rulesFullModelFile: Rule = mockifyFile( path )
+        ( modelFileUrl: Path ) => {
+          const rulesFullModelFile: Rule = mockifyFile( modelFileUrl )
           rulesFullModelFolder.push( rulesFullModelFile )
         }
       )
