@@ -1,12 +1,15 @@
 import { Schema } from './schema.d';
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
+import { Path } from '@angular-devkit/core';
+
 import { buildWithBlocksRule } from './lib/rules/rule-with-blocks/rule-with-blocks'
 import { buildExportClassRule } from './lib/rules/rule-export-class/rule-export-class'
 import { buildDefaultDataRule } from './lib/rules/rule-default-data/rule-default-data'
 import { buildModelFunctionRule } from './lib/rules/rule-model-function/rule-model-function'
 import { buildCloseCurlyBraceRule } from './lib/rules/rule-close-curly-brace/rule-close-curly-brace'
 import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
-import { Path } from '@angular-devkit/core';
+import { getMockUrl } from './lib/utils/get-mock-url/get-mock-url';
+import { createBlankFile } from './lib/utils/create-blank-file-at-url/create-blank-file-at-url';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -39,8 +42,8 @@ export function mockifyFile( modelUrl: string ): Rule {
     context: SchematicContext
   ) => {
     const mockUrl: string = getMockUrl( modelUrl );
-    
     const modelFileText: string = tree.read( modelUrl )?.toString() || '';
+
     const {
       className,
       keys
@@ -75,23 +78,4 @@ export function mockifyFile( modelUrl: string ): Rule {
 
     return chain( rulesFullModelFile )( tree, context )
   }
-}
-
-function getMockUrl( modelUrl: string ) {
-  const mockUrl: string =
-    modelUrl
-      .replace( 'models', 'mocks' )
-      .replace( '.ts', '.mock.ts' );
-  
-  return mockUrl
-}
-
-function createBlankFile(
-  tree: Tree,
-  mockUrl: string
-) {
-  if ( tree.exists( mockUrl ) ) {
-    tree.delete( mockUrl )
-  }
-  tree.create( mockUrl, '' )
 }

@@ -12,7 +12,6 @@ export function addCodeFromTemplate( _options: AddCodeFromTemplateModel ): Rule 
     _tree: Tree,
     _context: SchematicContext
   ) => {
-
     const {
       variables,
       templatePathSegment,
