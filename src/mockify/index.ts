@@ -6,7 +6,7 @@ import { buildDefaultDataRule } from './lib/rules/rule-default-data/rule-default
 import { buildModelFunctionRule } from './lib/rules/rule-model-function/rule-model-function'
 import { buildCloseCurlyBraceRule } from './lib/rules/rule-close-curly-brace/rule-close-curly-brace'
 import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
-import { getFilesFromDirectorySync } from './lib/utils/get-files-from-directory/get-files-from-directory'
+import { Path } from '@angular-devkit/core';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -15,20 +15,24 @@ export function mockify( _options: Schema ): Rule {
     _context: SchematicContext
   ) => {
     const modelsFolderUrl: string = _options.modelsFolderUrl || './models';
-    const modelUrls: string[] = getFilesFromDirectorySync( modelsFolderUrl )
 
     let rulesFullModelFolder: Rule[] = []
 
-    for ( const modelUrl of modelUrls ) {
-      const rulesFullModelFile = mockifyFile( modelUrl )
-      rulesFullModelFolder.push( rulesFullModelFile )
-    }
+    tree
+      .getDir( modelsFolderUrl )
+      .visit( 
+        ( path: Path ) => {
+          console.log( path )
+          const rulesFullModelFile: Rule = mockifyFile( path )
+          rulesFullModelFolder.push( rulesFullModelFile )
+        }
+      )
 
     return chain( rulesFullModelFolder )( tree, _context )
   }
 }
 
-export function mockifyFile( modelUrl: string ) {
+export function mockifyFile( modelUrl: string ): Rule {
   return (
     tree: Tree,
     _context: SchematicContext
