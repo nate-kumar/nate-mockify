@@ -29,8 +29,7 @@
     "src/**/*"
   ],
   "exclude": [
-    "src/*/files/**/*",
-    "src/*/models/*",
-    "src/*/lib/**/*",
+    "src/*/templates/**/*",
+    "**/models/*"
   ]
 }

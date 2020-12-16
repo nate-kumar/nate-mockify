@@ -26,7 +26,7 @@ export function addCodeFromTemplate( _options: AddCodeFromTemplateModel ): Rule 
 
     const generateTemplateConfig: GenerateTemplateModel =
       {
-        templateUrl: `./files/${ templatePathSegment }`,
+        templateUrl: `./templates/${ templatePathSegment }`,
         variables
       }
     const appendToFileConfig: AddToFileModel =
