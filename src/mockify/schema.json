@@ -4,13 +4,35 @@
   "title": "Mockify Options Schema",
   "description": "Generates mock file for a given TypeScript model",
   "properties": {
-    "file": {
+    "modelsFolderUrl": {
       "type": "string",
-      "description": "The url of the .model.ts file",
+      "description": "The url of the .model.ts files",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Please provide the path where .model.ts files are stored e.g. ./models\n"
+    },
+    "mocksFolderUrl": {
+      "type": "string",
+      "description": "The url of the .model.ts files",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "Please provide the path where .model.mock.ts files are to be generated e.g. ./mocks\n"
+    },
+    "overwriteExisting": {
+      "type": "string",
+      "description": "The url of the .model.ts files",
       "$default": {
         "$source": "argv",
         "index": 0
       }
     }
-  }
+  },
+  "required": [
+    "modelsFolderUrl",
+    "mocksFolderUrl"
+  ]
 }
