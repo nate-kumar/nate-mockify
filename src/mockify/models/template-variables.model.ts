@@ -4,6 +4,6 @@ export interface TemplateVariablesModel {
 }
 
 export interface ClassNameAndKeysModel {
-  keys: string[];
+  keys: string[] | null;
   className: string;
 }
