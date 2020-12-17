@@ -9,6 +9,7 @@ import { buildModelFunctionRule } from './lib/rules/rule-model-function/rule-mod
 import { buildCloseCurlyBraceRule } from './lib/rules/rule-close-curly-brace/rule-close-curly-brace'
 import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
 import { consoleWarning } from './lib/utils/console-warnings/console-warnings';
+import { moveFile } from './lib/rules/rule-move-file/rule-move-file';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -61,7 +62,7 @@ export function mockify( _options: Schema ): Rule {
   }
 }
 
-export function mockifyFile( mockifyConfig: MockifyModel ): Rule {
+function mockifyFile( mockifyConfig: MockifyModel ): Rule {
   return (
     tree: Tree,
     context: SchematicContext
@@ -122,25 +123,5 @@ export function mockifyFile( mockifyConfig: MockifyModel ): Rule {
       ]
 
     return chain( rulesFullModelFile )( tree, context )
-  }
-}
-
-export function moveFile( moveMockFileConfig: MoveFileModel ): Rule {
-  return (
-    tree: Tree,
-    _context: SchematicContext
-  ) => {
-    const {
-      fileSegmentUrl,
-      sourceFolderUrl,
-      targetFolderUrl
-    } = moveMockFileConfig
-
-    tree.rename(
-      `${ sourceFolderUrl }${ fileSegmentUrl }`,
-      `${ targetFolderUrl }${ fileSegmentUrl }`
-    )
-
-    return tree
   }
 }
