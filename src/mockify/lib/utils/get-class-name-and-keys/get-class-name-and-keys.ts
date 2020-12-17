@@ -133,7 +133,7 @@ function handleFileErrors(
     consoleWarning(
       'SKIPPED',
       'constructor',
-      [ className || '' ]
+      { className }
     )
   }
 }
@@ -173,7 +173,7 @@ function handleClassNameErrors( classNameWithErrors: string ): string {
     consoleWarning(
       'SKIPPED',
       'class-name-empty',
-      []
+      {}
     )
   }
 
@@ -238,7 +238,7 @@ function handleKeysErrors(
     consoleWarning(
       'SKIPPED',
       'keys-empty',
-      [ className ]
+      { className }
     )
   }
 
@@ -246,9 +246,9 @@ function handleKeysErrors(
     consoleWarning(
       'SKIPPED',
       'generic-keys',
-      [ className ]
+      { className }
     )
-    
+
     return keysWithPotentialErrors
       ?.filter(
         ( key: string ) => key !== '[key'

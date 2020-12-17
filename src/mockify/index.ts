@@ -96,7 +96,7 @@ export function mockifyFile( mockifyConfig: MockifyModel ): Rule {
         consoleWarning(
           'SKIPPED',
           'not-overwritten',
-          [ className || '' ]
+          { className }
         )
         return tree
       }

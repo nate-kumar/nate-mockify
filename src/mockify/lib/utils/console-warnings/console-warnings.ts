@@ -1,33 +1,73 @@
+import { ConsoleWarningParamsModel, ConsoleWarningSegmentModel } from './../../../models/console-warning-params.model';
+
 export function consoleWarning(
   type: string,
   messageCode: string,
-  params: string[]
+  params: ConsoleWarningParamsModel
 ) {
   if ( !messageCode ) { 
     type = 'error'
   }
 
-  const colour: string = getColour( type )
-  const prefix: string = getPrefix( type )
-  const message: string = 
-    getMessage(
+  const warningSegments: ConsoleWarningSegmentModel[] =
+    getWarningSegments(
+      type,
       messageCode,
       params
     )
-  
-  console.warn(
-    colour,
-    prefix,
-    message
-  )
+
+  const warningSegmentsArray: string[] = 
+    warningSegments
+      .map(
+        ( warningSegment: ConsoleWarningSegmentModel ) => warningSegment.colour + warningSegment.text
+      )
+
+  console.warn( ...warningSegmentsArray );
+}
+
+function getWarningSegments(
+  type: string,
+  messageCode: string,
+  params: ConsoleWarningParamsModel
+): ConsoleWarningSegmentModel[] {
+  let segments = [];
+
+  if ( type ) {
+    const typeSegment: ConsoleWarningSegmentModel = 
+      {
+        colour: getColour( type ),
+        text: getPrefix( type )
+      }
+    segments.push( typeSegment )
+  }
+
+  if ( params ) {
+    const subjectSegment: ConsoleWarningSegmentModel =
+      {
+        colour: '\x1b[1m',
+        text: params.className || params.fileName || params.keyName || ''
+      }
+    segments.push( subjectSegment )
+  }
+
+  if ( messageCode ) {
+    const messageSegment: ConsoleWarningSegmentModel = 
+      {
+        colour: '\x1b[0m',
+        text: getMessage( messageCode )
+      }
+    segments.push( messageSegment )
+  }
+
+  return segments;
 }
 
 function getColour( type: string ): string {
   if ( type === 'SKIPPED' ) {
-    return '\x1b[33m%s\x1b[0m';
+    return '\x1b[33m';
   }
   if ( type === 'ERROR' ) {
-    return '\x1b[31m%s\x1b[0m'
+    return '\x1b[31m'
   }
   return '\x1b[0m'
 }
@@ -42,24 +82,21 @@ function getPrefix( type: string ): string {
   return ''
 }
 
-function getMessage(
-  messageCode: string,
-  params: string[]
-) {
+function getMessage( messageCode: string ) {
   if ( messageCode === 'not-overwritten' ) {
-    return `Existing ${ params[ 0 ] } found and not overwritten`;
+    return `Existing file found and not overwritten`;
   }
   if ( messageCode === 'constructor' ) {
-    return `${ params[ 0 ] } : Constructor present in model file`;
+    return `Constructor present in model file`;
   }
   if ( messageCode === 'class-name-empty' ) {
     return `Class name is empty`;
   }
   if ( messageCode === 'keys-empty' ) {
-    return `${ params[ 0 ] } : Keys are empty, check for nested objects`;
+    return `Keys are empty, check for nested objects`;
   }
   if ( messageCode === 'generic-keys' ) {
-    return `${ params[ 0 ] } : Generic syntax (e.g. [ key: string ]) not supported`;
+    return `Generic syntax (e.g. [key: string]: string) not supported`;
   }
   return `Something went wrong`
 }
