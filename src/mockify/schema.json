@@ -11,7 +11,7 @@
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "Please specify the relative path where .model.ts files are located\n  > Default path: ./models\n"
+      "x-prompt": "\u001b[0mPlease specify the relative path where .model.ts files are located\n\u001b[0m  Default path: \u001b[37;1m./models\n\u001b[0m  >"
     },
     "mocksFolderUrl": {
       "type": "string",
@@ -20,7 +20,7 @@
         "$source": "argv",
         "index": 1
       },
-      "x-prompt": "Please specify the relative path where .model.mock.ts files are to be generated\n  > Default path: ./models/mocks\n"
+      "x-prompt": "\u001b[0mPlease specify the relative path where .model.mock.ts files are to be generated\n\u001b[0m  Default path: \u001b[37;1m./models/mocks\n\u001b[0m  >"
     },
     "overwriteExisting": {
       "type": "string",
