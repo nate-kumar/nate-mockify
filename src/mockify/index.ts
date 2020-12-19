@@ -18,6 +18,7 @@ export function mockify( _options: Schema ): Rule {
     tree: Tree,
     context: SchematicContext
   ) => {
+    // TODO change to ./src/app/models/ if appropriate
     const modelsFolderUrl: string = _options.modelsFolderUrl || './models/';
     const mocksFolderUrl: string = _options.mocksFolderUrl || './models/mocks/'
     const overwriteExisting: boolean = _options.overwriteExisting || false;
