@@ -11,6 +11,7 @@ import { getClassNameAndKeys } from './utils/get-class-name-and-keys/get-class-n
 import { consoleWarning } from '../generic/utils/console-warnings/console-warnings';
 import { MoveFileModel } from '../generic/models/move-file.model';
 import { moveFile } from '../generic/rules/rule-move-file/rule-move-file';
+import { buildAddImportsRule } from './rules/rule-add-imports/rule-add-imports';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -114,6 +115,7 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
     const ruleWithBlocks: Rule = buildWithBlocksRule( mockUrl, className, keys );
     const ruleModelFunction: Rule = buildModelFunctionRule( mockUrl, className );
     const ruleCloseCurlyBrace: Rule = buildCloseCurlyBraceRule( mockUrl );
+    const ruleAddImports: Rule = buildAddImportsRule( mockUrl, className, keys, modelsFolderUrl )
 
     const rulesFullModelFile: Rule[] =
       [
@@ -121,7 +123,8 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
         ruleDefaultData,
         ruleWithBlocks,
         ruleModelFunction,
-        ruleCloseCurlyBrace
+        ruleCloseCurlyBrace,
+        ruleAddImports
       ]
 
     return chain( rulesFullModelFile )( tree, context )
