@@ -1,6 +1,6 @@
-import { ClassNameAndKeysModel } from '../../../models/class-name-and-keys';
-import { consoleWarning } from '../../../../generic/utils/console-warnings/console-warnings';
-import { ClassLineSegmentsModel } from '../../../models/class-line-segments.model';
+import { ClassNameAndKeysModel } from '../../models/class-name-and-keys';
+import { consoleWarning } from '../../../generic/utils/console-warnings/console-warnings';
+import { ClassLineSegmentsModel } from '../../models/class-line-segments.model';
 
 export function getClassNameAndKeys( modelFileText: string ) {
   // Get code as string from .model.ts file

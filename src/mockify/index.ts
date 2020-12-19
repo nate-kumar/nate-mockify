@@ -2,12 +2,12 @@ import { MockifyModel } from './models/mockify.model';
 import { Schema } from './schema.d';
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
 import { Path } from '@angular-devkit/core';
-import { buildWithBlocksRule } from './lib/rules/rule-with-blocks/rule-with-blocks'
-import { buildExportClassRule } from './lib/rules/rule-export-class/rule-export-class'
-import { buildDefaultDataRule } from './lib/rules/rule-default-data/rule-default-data'
-import { buildModelFunctionRule } from './lib/rules/rule-model-function/rule-model-function'
-import { buildCloseCurlyBraceRule } from './lib/rules/rule-close-curly-brace/rule-close-curly-brace'
-import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
+import { buildWithBlocksRule } from './rules/rule-with-blocks/rule-with-blocks'
+import { buildExportClassRule } from './rules/rule-export-class/rule-export-class'
+import { buildDefaultDataRule } from './rules/rule-default-data/rule-default-data'
+import { buildModelFunctionRule } from './rules/rule-model-function/rule-model-function'
+import { buildCloseCurlyBraceRule } from './rules/rule-close-curly-brace/rule-close-curly-brace'
+import { getClassNameAndKeys } from './utils/get-class-name-and-keys/get-class-name-and-keys'
 import { consoleWarning } from '../generic/utils/console-warnings/console-warnings';
 import { MoveFileModel } from '../generic/models/move-file.model';
 import { moveFile } from '../generic/rules/rule-move-file/rule-move-file';
