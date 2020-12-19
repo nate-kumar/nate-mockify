@@ -1,4 +1,4 @@
-import { MockifyModel, MoveFileModel } from './models/file-manipulation.model';
+import { MockifyModel } from './models/mockify.model';
 import { Schema } from './schema.d';
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
 import { Path } from '@angular-devkit/core';
@@ -8,8 +8,9 @@ import { buildDefaultDataRule } from './lib/rules/rule-default-data/rule-default
 import { buildModelFunctionRule } from './lib/rules/rule-model-function/rule-model-function'
 import { buildCloseCurlyBraceRule } from './lib/rules/rule-close-curly-brace/rule-close-curly-brace'
 import { getClassNameAndKeys } from './lib/utils/get-class-name-and-keys/get-class-name-and-keys'
-import { consoleWarning } from './lib/utils/console-warnings/console-warnings';
-import { moveFile } from './lib/rules/rule-move-file/rule-move-file';
+import { consoleWarning } from '../generic/utils/console-warnings/console-warnings';
+import { MoveFileModel } from '../generic/models/move-file.model';
+import { moveFile } from '../generic/rules/rule-move-file/rule-move-file';
 
 
 export function mockify( _options: Schema ): Rule {

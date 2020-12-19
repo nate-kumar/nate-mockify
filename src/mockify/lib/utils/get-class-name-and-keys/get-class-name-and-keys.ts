@@ -1,6 +1,6 @@
-import { ClassNameAndKeysModel } from '../../../models/template-variables.model';
-import { consoleWarning } from '../console-warnings/console-warnings';
-import { SegmentsModel } from './../../../models/segments.model';
+import { ClassNameAndKeysModel } from '../../../models/class-name-and-keys';
+import { consoleWarning } from '../../../../generic/utils/console-warnings/console-warnings';
+import { ClassLineSegmentsModel } from '../../../models/class-line-segments.model';
 
 export function getClassNameAndKeys( modelFileText: string ) {
   // Get code as string from .model.ts file
@@ -12,7 +12,7 @@ export function getClassNameAndKeys( modelFileText: string ) {
     lineExportInterface,
     linesOfKeys,
     fileErrors
-  }: SegmentsModel = getSegmentsFromModelLines( linesOfCodeArray );
+  }: ClassLineSegmentsModel = getSegmentsFromModelLines( linesOfCodeArray );
 
   let classNameAndKeys: ClassNameAndKeysModel;
   let className: string = '';
@@ -49,8 +49,8 @@ export function getClassNameAndKeys( modelFileText: string ) {
   return classNameAndKeys;
 }
 
-function getSegmentsFromModelLines( linesOfCodeArray: string[] ): SegmentsModel {
-  let segments: SegmentsModel =
+function getSegmentsFromModelLines( linesOfCodeArray: string[] ): ClassLineSegmentsModel {
+  let segments: ClassLineSegmentsModel =
     {
       lineExportInterface: '',
       linesOfKeys: [],

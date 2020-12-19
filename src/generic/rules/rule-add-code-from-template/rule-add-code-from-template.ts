@@ -1,8 +1,8 @@
 import { chain, Rule, SchematicContext } from "@angular-devkit/schematics";
 import { Tree } from "@angular-devkit/schematics/src/tree/interface";
-import { AddCodeFromTemplateModel } from "../../../models/add-code-from-template.model";
-import { AddToFileModel } from "../../../models/add-to-file.model";
-import { GenerateTemplateModel } from "../../../models/generate-template.model";
+import { AddCodeFromTemplateModel } from "../../models/add-code-from-template.model";
+import { AddToFileModel } from "../../models/add-to-file.model";
+import { GenerateTemplateModel } from "../../models/generate-template.model";
 import { appendToFile } from "../rule-append-to-file/rule-append-to-file";
 import { deleteFile } from "../rule-delete-file/rule-delete-file";
 import { generateTemplateFile } from "../rule-generate-template-file/rule-generate-template-file";

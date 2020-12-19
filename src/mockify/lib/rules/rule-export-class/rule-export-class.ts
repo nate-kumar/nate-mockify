@@ -1,10 +1,7 @@
 import { Rule, SchematicContext } from "@angular-devkit/schematics";
 import { Tree } from "@angular-devkit/schematics/src/tree/interface";
-// import { appendToFile } from "../rule-append-to-file/rule-append-to-file";
-// import { deleteFile } from "../rule-delete-file/rule-delete-file";
-// import { generateTemplateFile } from "../rule-generate-template-file/rule-generate-template-file";
-import { addCodeFromTemplate } from './../rule-add-code-from-template/rule-add-code-from-template'
-import { AddCodeFromTemplateModel } from '../../../models/add-code-from-template.model';
+import { AddCodeFromTemplateModel } from '../../../../generic/models/add-code-from-template.model';
+import { addCodeFromTemplate } from "../../../../generic/rules/rule-add-code-from-template/rule-add-code-from-template";
 
 export function buildExportClassRule( 
   mockUrl: string,

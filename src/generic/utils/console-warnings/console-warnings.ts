@@ -1,5 +1,5 @@
-import { ConsoleWarningSegmentModel } from "../../../../generic/models/console-warning-segment.model";
-import { ConsoleWarningParamsModel } from "../../../models/console-warning-params.model";
+import { ConsoleWarningParamsModel } from '../../../mockify/models/console-warning-params.model';
+import { ConsoleWarningSegmentModel } from '../../models/console-warning-segment.model';
 
 export function consoleWarning(
   type: string,
@@ -31,7 +31,7 @@ function getWarningSegments(
   messageCode: string,
   params: ConsoleWarningParamsModel
 ): ConsoleWarningSegmentModel[] {
-  let segments: ConsoleWarningSegmentModel[] = [];
+  let segments = [];
 
   if ( type ) {
     const typeSegment: ConsoleWarningSegmentModel = 
