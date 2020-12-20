@@ -2,13 +2,14 @@ import { Rule, SchematicContext } from "@angular-devkit/schematics";
 import { Tree, UpdateRecorder } from "@angular-devkit/schematics/src/tree/interface";
 import { insertImport } from '@schematics/angular/utility/ast-utils'
 import { InsertChange } from '@schematics/angular/utility/change';
+import { dasherize } from "@angular-devkit/core/src/utils/strings";
 import * as ts from 'typescript';
 
 export function buildAddImportsRule(
   mockUrl: string,
-  _className: string,
+  className: string,
   _keys: string[],
-  _modelsFolderUrl: string
+  modelsFolderUrl: string
 ): Rule {
   return (
     tree: Tree,
@@ -19,28 +20,43 @@ export function buildAddImportsRule(
         [ mockUrl ],
         {}
       );
-    const mockSourceFile: ts.SourceFile = program.getSourceFile( mockUrl );
-    const importChange: InsertChange =
-      insertImport( 
-        mockSourceFile,
-        mockUrl,
-        'DateModel',
-        './models/date.model.ts'
-      ) as InsertChange;
+    const mockSourceFile: ts.SourceFile | undefined = program.getSourceFile( mockUrl );
 
-    if ( importChange ) {
-      const recorder: UpdateRecorder = tree.beginUpdate( mockUrl );
+    if ( mockSourceFile ) {
+      const importModelUrl: string = 
+        getModelUrlFromModelClassName(
+          className,
+          modelsFolderUrl
+        )
+      const importChange: InsertChange =
+        insertImport( 
+          mockSourceFile,
+          mockUrl,
+          className,
+          importModelUrl
+        ) as InsertChange;
 
-      recorder.insertLeft(
-        importChange.pos,
-        importChange.toAdd
-      );
+      if ( importChange ) {
+        const recorder: UpdateRecorder = tree.beginUpdate( mockUrl );
 
-      tree.commitUpdate(recorder);
+        recorder.insertLeft(
+          importChange.pos,
+          importChange.toAdd
+        );
+
+        tree.commitUpdate(recorder);
+      }
     }
-
+    
     return tree
   };
+}
+
+function getModelUrlFromModelClassName(
+  className: string,
+  modelsFolderUrl: string,
+): string {
+  return `${ modelsFolderUrl }${ dasherize( className.replace( 'Model', '' ) ) }.model.ts`;
 }
 
 module.exports;
