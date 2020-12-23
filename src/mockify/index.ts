@@ -3,7 +3,7 @@ import { Schema } from './schema.d';
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
 import { Path } from '@angular-devkit/core';
 import getClassNameAndKeys from './utils/get-class-name-and-keys/get-class-name-and-keys'
-import consoleWarning from '../generic/utils/console-warnings/console-warnings';
+import addConsoleWarning from '../generic/utils/console-warnings/console-warnings';
 import MoveFileModel from '../generic/models/move-file.model';
 import buildWithBlocksRule from './rules/rule-with-blocks/rule-with-blocks'
 import buildExportClassRule from './rules/rule-export-class/rule-export-class'
@@ -15,6 +15,7 @@ import startProgressBar from '../generic/rules/progress-bar/rule-start-progress-
 import incrementProgressBar from '../generic/rules/progress-bar/rule-increment-progress-bar/rule-increment-progress-bar';
 import stopProgressBar from '../generic/rules/progress-bar/rule-stop-progress-bar/rule-stop-progress-bar';
 import createProgressBar from '../generic/rules/progress-bar/create-progress-bar/create-progress-bar';
+import displayConsoleWarnings from '../generic/utils/console-warnings/rule-display-console-warnings';
 // import { buildAddImportsRule } from './rules/rule-add-imports/rule-add-imports';
 
 
@@ -68,7 +69,7 @@ export function mockify( _options: Schema ): Rule {
             rulesFullModelFolder.push( ruleMoveMockIncrementProgressBar )
           }
 
-          if ( isModelFile( fileSegmentUrl ) ) {
+          else if ( isModelFile( fileSegmentUrl ) ) {
             const mockifyConfig: MockifyModel =
               {
                 fileSegmentUrl,
@@ -90,11 +91,18 @@ export function mockify( _options: Schema ): Rule {
 
             rulesFullModelFolder.push( ruleMockifyIncrementProgressBar )
           }
+
+          else {
+            console.warn( `UNKNOWN ${ fileUrl }` )
+          }
         }
       )
 
     const ruleStopProgressBar: Rule = stopProgressBar( progressBar )
     rulesFullModelFolder.push( ruleStopProgressBar )
+
+    const ruleDisplayConsoleWarnings: Rule = displayConsoleWarnings();
+    rulesFullModelFolder.push( ruleDisplayConsoleWarnings )
 
     return chain( rulesFullModelFolder )( tree, context )
   }
@@ -132,8 +140,8 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
 
     if ( tree.exists( mockUrl ) ) {
       if ( !overwriteExisting ) {
-        consoleWarning(
-          'SKIPPED',
+        addConsoleWarning(
+          'IGNORE',
           'not-overwritten',
           { className }
         )

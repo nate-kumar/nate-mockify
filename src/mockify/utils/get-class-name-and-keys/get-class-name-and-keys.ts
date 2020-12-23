@@ -1,6 +1,6 @@
 import ClassNameAndKeysModel from '../../models/class-name-and-keys';
 import ClassLineSegmentsModel from '../../models/class-line-segments.model';
-import consoleWarning from '../../../generic/utils/console-warnings/console-warnings';
+import addConsoleWarning from '../../../generic/utils/console-warnings/console-warnings';
 
 export default function getClassNameAndKeys( modelFileText: string ) {
   // Get code as string from .model.ts file
@@ -130,8 +130,8 @@ function handleFileErrors(
   className?: string
 ) {
   if ( fileErrors.includes( 'constructor' ) ) {
-    consoleWarning(
-      'SKIPPED',
+    addConsoleWarning(
+      'IGNORE',
       'constructor',
       { className }
     )
@@ -170,8 +170,8 @@ function getClassName( lineExportInterface: string ): string {
 
 function handleClassNameErrors( classNameWithErrors: string ): string {
   if ( classNameWithErrors === '' ) {
-    consoleWarning(
-      'SKIPPED',
+    addConsoleWarning(
+      'IGNORE',
       'class-name-empty',
       {}
     )
@@ -235,16 +235,16 @@ function handleKeysErrors(
   keysWithPotentialErrors: string[]
 ): string[] {
   if ( keysWithPotentialErrors.length === 0 ) {
-    consoleWarning(
-      'SKIPPED',
+    addConsoleWarning(
+      'IGNORE',
       'keys-empty',
       { className }
     )
   }
 
   if ( keysWithPotentialErrors.includes( '[key' ) ) {
-    consoleWarning(
-      'SKIPPED',
+    addConsoleWarning(
+      'IGNORE',
       'generic-keys',
       { className }
     )

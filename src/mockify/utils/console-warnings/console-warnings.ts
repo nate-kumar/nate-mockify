@@ -64,7 +64,7 @@ function getWarningSegments(
 }
 
 function getColour( type: string ): string {
-  if ( type === 'SKIPPED' ) {
+  if ( type === 'IGNORE' ) {
     return '\x1b[33m';
   }
   if ( type === 'ERROR' ) {
@@ -74,8 +74,8 @@ function getColour( type: string ): string {
 }
 
 function getPrefix( type: string ): string {
-  if ( type === 'SKIPPED' ) {
-    return 'SKIPPED';
+  if ( type === 'IGNORE' ) {
+    return 'IGNORE';
   }
   if ( type === 'ERROR' ) {
     return 'ERROR'
