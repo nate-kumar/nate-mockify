@@ -52,7 +52,9 @@ function formatConsoleWarningSegments( consoleWarningsObject: ConsoleWarningType
       )
       ?.join( '\r\n' );
 
-  return consoleWarningsCombinedString;
+  const consoleWarningsCombinedStringWithNewLine = '\r\n' + consoleWarningsCombinedString
+
+  return consoleWarningsCombinedStringWithNewLine;
 }
 
 module.exports;

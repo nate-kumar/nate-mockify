@@ -17,7 +17,7 @@ import stopProgressBar from '../generic/rules/progress-bar/rule-stop-progress-ba
 import createProgressBar from '../generic/rules/progress-bar/create-progress-bar/create-progress-bar';
 import displayConsoleWarnings from '../generic/utils/console-warnings/rule-display-console-warnings';
 import ConsoleWarningTypesEnum from '../generic/enums/console-warning-types.enum';
-// import { buildAddImportsRule } from './rules/rule-add-imports/rule-add-imports';
+import buildAddImportsRule from './rules/rule-add-imports/rule-add-imports';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -29,6 +29,7 @@ export function mockify( _options: Schema ): Rule {
     const modelsFolderUrl: string = _options.modelsFolderUrl || './models/';
     const mocksFolderUrl: string = _options.mocksFolderUrl || './models/mocks/'
     const overwriteExisting: boolean = _options.overwriteExisting || false;
+    const withImports: boolean = _options.withImports || false;
     const rulesFullModelFolder: Rule[] = []
 
     const isModelFile: ( modelFileUrl: string ) => boolean = ( modelFileUrl: string ) => modelFileUrl.includes( '.model.ts' )
@@ -66,7 +67,8 @@ export function mockify( _options: Schema ): Rule {
                 fileSegmentUrl,
                 modelsFolderUrl,
                 mocksFolderUrl,
-                overwriteExisting
+                overwriteExisting,
+                withImports
               }
 
             const ruleMockifyFile: Rule = mockifyFile( mockifyConfig )
@@ -102,7 +104,8 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
       fileSegmentUrl,
       modelsFolderUrl,
       mocksFolderUrl,
-      overwriteExisting      
+      overwriteExisting,
+      withImports   
     } = mockifyConfig;
 
     const mockFileSegmentUrl: string = fileSegmentUrl.replace( '.ts', '.mock.ts' )
@@ -143,7 +146,6 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
     const ruleWithBlocks: Rule = buildWithBlocksRule( mockUrl, className, keys );
     const ruleModelFunction: Rule = buildModelFunctionRule( mockUrl, className );
     const ruleCloseCurlyBrace: Rule = buildCloseCurlyBraceRule( mockUrl );
-    // const ruleAddImports: Rule = buildAddImportsRule( mockUrl, className, keys, modelsFolderUrl )
 
     const rulesFullModelFile: Rule[] =
       [
@@ -151,9 +153,13 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
         ruleDefaultData,
         ruleWithBlocks,
         ruleModelFunction,
-        ruleCloseCurlyBrace,
-        // ruleAddImports
+        ruleCloseCurlyBrace
       ]
+
+    if ( withImports ) {
+      const ruleAddImports: Rule = buildAddImportsRule( mockUrl, className, keys, modelsFolderUrl );
+      rulesFullModelFile.push( ruleAddImports );
+    }
 
     return chain( rulesFullModelFile )( tree, context )
   }

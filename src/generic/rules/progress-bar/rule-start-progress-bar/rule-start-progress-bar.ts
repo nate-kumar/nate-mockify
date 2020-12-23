@@ -9,6 +9,8 @@ export default function startProgressBar(
     tree: Tree,
     _context: SchematicContext
   ) => {
+    console.log( '' )
+
     const numFiles: number =
       tree
         .getDir( folderUrl )?.subfiles?.length;
