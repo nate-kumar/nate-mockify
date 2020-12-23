@@ -1,8 +1,8 @@
 import { Rule, SchematicContext, UpdateRecorder } from "@angular-devkit/schematics";
 import { Tree } from "@angular-devkit/schematics/src/tree/interface";
-import { AddToFileModel } from "../../models/add-to-file.model";
+import AddToFileModel from "../../../models/add-to-file.model";
 
-export function appendToFile( _options: AddToFileModel ): Rule {
+export default function appendToFile( _options: AddToFileModel ): Rule {
   return (
     tree: Tree,
     _context: SchematicContext

@@ -1,5 +1,5 @@
-import { ConsoleWarningSegmentModel } from "../../../generic/models/console-warning-segment.model";
-import { ConsoleWarningParamsModel } from "../../models/console-warning-params.model";
+import ConsoleWarningSegmentModel from "../../../generic/models/console-warning-segment.model";
+import ConsoleWarningParamsModel from "../../models/console-warning-params.model";
 
 export function consoleWarning(
   type: string,

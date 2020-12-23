@@ -1,9 +1,9 @@
 import { strings } from "@angular-devkit/core";
 import { Rule, SchematicContext, Source, mergeWith, apply, url, template } from "@angular-devkit/schematics";
 import { Tree } from "@angular-devkit/schematics/src/tree/interface";
-import { GenerateTemplateModel } from "../../models/generate-template.model";
+import GenerateTemplateModel from "../../../models/generate-template.model";
 
-export function generateTemplateFile( _options: GenerateTemplateModel ): Rule {
+export default function generateTemplateFile( _options: GenerateTemplateModel ): Rule {
   return (
     tree: Tree,
     context: SchematicContext

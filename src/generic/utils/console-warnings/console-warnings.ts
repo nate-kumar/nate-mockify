@@ -1,7 +1,7 @@
-import { ConsoleWarningParamsModel } from '../../../mockify/models/console-warning-params.model';
-import { ConsoleWarningSegmentModel } from '../../models/console-warning-segment.model';
+import ConsoleWarningParamsModel from '../../../mockify/models/console-warning-params.model';
+import ConsoleWarningSegmentModel from '../../models/console-warning-segment.model';
 
-export function consoleWarning(
+export default function consoleWarning(
   type: string,
   messageCode: string,
   params: ConsoleWarningParamsModel
@@ -23,7 +23,7 @@ export function consoleWarning(
         ( warningSegment: ConsoleWarningSegmentModel ) => warningSegment.colour + warningSegment.text
       )
 
-  console.warn( ...warningSegmentsArray );
+  console.warn( '\r\n', ...warningSegmentsArray );
 }
 
 function getWarningSegments(

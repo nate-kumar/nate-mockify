@@ -1,17 +1,21 @@
-import { MockifyModel } from './models/mockify.model';
+import MockifyModel from './models/mockify.model';
 import { Schema } from './schema.d';
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
 import { Path } from '@angular-devkit/core';
-import { buildWithBlocksRule } from './rules/rule-with-blocks/rule-with-blocks'
-import { buildExportClassRule } from './rules/rule-export-class/rule-export-class'
-import { buildDefaultDataRule } from './rules/rule-default-data/rule-default-data'
-import { buildModelFunctionRule } from './rules/rule-model-function/rule-model-function'
-import { buildCloseCurlyBraceRule } from './rules/rule-close-curly-brace/rule-close-curly-brace'
-import { getClassNameAndKeys } from './utils/get-class-name-and-keys/get-class-name-and-keys'
-import { consoleWarning } from '../generic/utils/console-warnings/console-warnings';
-import { MoveFileModel } from '../generic/models/move-file.model';
-import { moveFile } from '../generic/rules/rule-move-file/rule-move-file';
-import { buildAddImportsRule } from './rules/rule-add-imports/rule-add-imports';
+import getClassNameAndKeys from './utils/get-class-name-and-keys/get-class-name-and-keys'
+import consoleWarning from '../generic/utils/console-warnings/console-warnings';
+import MoveFileModel from '../generic/models/move-file.model';
+import buildWithBlocksRule from './rules/rule-with-blocks/rule-with-blocks'
+import buildExportClassRule from './rules/rule-export-class/rule-export-class'
+import buildDefaultDataRule from './rules/rule-default-data/rule-default-data'
+import buildModelFunctionRule from './rules/rule-model-function/rule-model-function'
+import buildCloseCurlyBraceRule from './rules/rule-close-curly-brace/rule-close-curly-brace'
+import moveFile from '../generic/rules/files/rule-move-file/rule-move-file';
+import startProgressBar from '../generic/rules/progress-bar/rule-start-progress-bar/rule-start-progress-bar';
+import incrementProgressBar from '../generic/rules/progress-bar/rule-increment-progress-bar/rule-increment-progress-bar';
+import stopProgressBar from '../generic/rules/progress-bar/rule-stop-progress-bar/rule-stop-progress-bar';
+import createProgressBar from '../generic/rules/progress-bar/create-progress-bar/create-progress-bar';
+// import { buildAddImportsRule } from './rules/rule-add-imports/rule-add-imports';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -28,6 +32,14 @@ export function mockify( _options: Schema ): Rule {
     const isModelFile: ( modelFileUrl: string ) => boolean = ( modelFileUrl: string ) => modelFileUrl.includes( '.model.ts' )
     const isMockFile: ( modelFileUrl: string ) => boolean = ( modelFileUrl: string ) => modelFileUrl.includes( '.mock.ts' )
 
+    const progressBar: any = createProgressBar();
+    const ruleStartProgressBar: Rule =
+      startProgressBar(
+        progressBar,
+        modelsFolderUrl
+      )
+    rulesFullModelFolder.push( ruleStartProgressBar );
+
     tree
       .getDir( modelsFolderUrl )
       .visit( 
@@ -42,8 +54,18 @@ export function mockify( _options: Schema ): Rule {
                 targetFolderUrl: mocksFolderUrl
               }
 
-            const rulesMoveMockFile: Rule = moveFile( moveMockFileConfig )
-            rulesFullModelFolder.push( rulesMoveMockFile )
+            const ruleMoveMockFile: Rule = moveFile( moveMockFileConfig )
+            const ruleIncrementProgressBar: Rule = incrementProgressBar( progressBar )
+
+            const ruleMoveMockIncrementProgressBar: Rule =
+              chain(
+                [
+                  ruleIncrementProgressBar,
+                  ruleMoveMockFile
+                ]
+              )
+
+            rulesFullModelFolder.push( ruleMoveMockIncrementProgressBar )
           }
 
           if ( isModelFile( fileSegmentUrl ) ) {
@@ -55,11 +77,24 @@ export function mockify( _options: Schema ): Rule {
                 overwriteExisting
               }
 
-            const rulesMockifyFile: Rule = mockifyFile( mockifyConfig )
-            rulesFullModelFolder.push( rulesMockifyFile )
+            const ruleMockifyFile: Rule = mockifyFile( mockifyConfig )
+            const ruleIncrementProgressBar: Rule = incrementProgressBar( progressBar )
+
+            const ruleMockifyIncrementProgressBar: Rule =
+              chain(
+                [
+                  ruleIncrementProgressBar,
+                  ruleMockifyFile
+                ]
+              )
+
+            rulesFullModelFolder.push( ruleMockifyIncrementProgressBar )
           }
         }
       )
+
+    const ruleStopProgressBar: Rule = stopProgressBar( progressBar )
+    rulesFullModelFolder.push( ruleStopProgressBar )
 
     return chain( rulesFullModelFolder )( tree, context )
   }
@@ -77,7 +112,7 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
       overwriteExisting      
     } = mockifyConfig;
 
-    const mockFileSegmentUrl = fileSegmentUrl.replace( '.ts', '.mock.ts' )
+    const mockFileSegmentUrl: string = fileSegmentUrl.replace( '.ts', '.mock.ts' )
     const modelUrl: string = `${ modelsFolderUrl }${ fileSegmentUrl }`;
     const mockUrl: string = `${ mocksFolderUrl }${ mockFileSegmentUrl }`;
 
@@ -115,7 +150,7 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
     const ruleWithBlocks: Rule = buildWithBlocksRule( mockUrl, className, keys );
     const ruleModelFunction: Rule = buildModelFunctionRule( mockUrl, className );
     const ruleCloseCurlyBrace: Rule = buildCloseCurlyBraceRule( mockUrl );
-    const ruleAddImports: Rule = buildAddImportsRule( mockUrl, className, keys, modelsFolderUrl )
+    // const ruleAddImports: Rule = buildAddImportsRule( mockUrl, className, keys, modelsFolderUrl )
 
     const rulesFullModelFile: Rule[] =
       [
@@ -124,7 +159,7 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
         ruleWithBlocks,
         ruleModelFunction,
         ruleCloseCurlyBrace,
-        ruleAddImports
+        // ruleAddImports
       ]
 
     return chain( rulesFullModelFile )( tree, context )

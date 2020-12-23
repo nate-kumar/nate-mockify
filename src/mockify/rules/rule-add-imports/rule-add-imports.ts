@@ -5,7 +5,7 @@ import { InsertChange } from '@schematics/angular/utility/change';
 import { dasherize } from "@angular-devkit/core/src/utils/strings";
 import * as ts from 'typescript';
 
-export function buildAddImportsRule(
+export default function buildAddImportsRule(
   mockUrl: string,
   className: string,
   _keys: string[],
