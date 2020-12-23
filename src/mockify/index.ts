@@ -56,17 +56,7 @@ export function mockify( _options: Schema ): Rule {
               }
 
             const ruleMoveMockFile: Rule = moveFile( moveMockFileConfig )
-            const ruleIncrementProgressBar: Rule = incrementProgressBar( progressBar )
-
-            const ruleMoveMockIncrementProgressBar: Rule =
-              chain(
-                [
-                  ruleIncrementProgressBar,
-                  ruleMoveMockFile
-                ]
-              )
-
-            rulesFullModelFolder.push( ruleMoveMockIncrementProgressBar )
+            rulesFullModelFolder.push( ruleMoveMockFile )
           }
 
           else if ( isModelFile( fileSegmentUrl ) ) {
@@ -79,22 +69,16 @@ export function mockify( _options: Schema ): Rule {
               }
 
             const ruleMockifyFile: Rule = mockifyFile( mockifyConfig )
-            const ruleIncrementProgressBar: Rule = incrementProgressBar( progressBar )
-
-            const ruleMockifyIncrementProgressBar: Rule =
-              chain(
-                [
-                  ruleIncrementProgressBar,
-                  ruleMockifyFile
-                ]
-              )
-
-            rulesFullModelFolder.push( ruleMockifyIncrementProgressBar )
+            rulesFullModelFolder.push( ruleMockifyFile )
           }
 
           else {
-            console.warn( `UNKNOWN ${ fileUrl }` )
+            const ruleSkipUnhandledFileType: Rule = skipInvalidFileType( fileSegmentUrl );
+            rulesFullModelFolder.push( ruleSkipUnhandledFileType )
           }
+
+          const ruleIncrementProgressBar: Rule = incrementProgressBar( progressBar );
+          rulesFullModelFolder.push( ruleIncrementProgressBar );
         }
       )
 
@@ -171,5 +155,20 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
       ]
 
     return chain( rulesFullModelFile )( tree, context )
+  }
+}
+
+function skipInvalidFileType( fileSegmentUrl: string ) {
+  return (
+    tree: Tree,
+    _context: SchematicContext
+  ) => {
+    addConsoleWarning(
+      'INVALID',
+      'invalid-file-type',
+      { fileName: fileSegmentUrl }
+    )
+
+    return tree;
   }
 }

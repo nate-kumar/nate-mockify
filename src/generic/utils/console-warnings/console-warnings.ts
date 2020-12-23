@@ -1,13 +1,13 @@
 import ConsoleWarningParamsModel from '../../../mockify/models/console-warning-params.model';
 import ConsoleWarningSegmentModel from '../../models/console-warning-segment.model';
 
-const consoleWarningsArray: string[][] = [];
+const consoleWarningsArray: ConsoleWarningSegmentModel[][] = [];
 
 export default function addConsoleWarning(
   type: string,
   messageCode: string,
   params: ConsoleWarningParamsModel
-) {
+): void {
   if ( !messageCode ) { 
     type = 'error'
   }
@@ -19,16 +19,10 @@ export default function addConsoleWarning(
       params
     )
 
-  const warningSegmentsArray: string[] = 
-    warningSegments
-      .map(
-        ( warningSegment: ConsoleWarningSegmentModel ) => warningSegment.colour + warningSegment.text
-      )
-
-  consoleWarningsArray.push( warningSegmentsArray );
+  consoleWarningsArray.push( warningSegments );
 }
 
-export function getConsoleWarningsArray(): string[][] {
+export function getConsoleWarningsArray(): ConsoleWarningSegmentModel[][] {
   return consoleWarningsArray;
 }
 
@@ -73,6 +67,9 @@ function getColour( type: string ): string {
   if ( type === 'IGNORE' ) {
     return '\x1b[33m';
   }
+  if ( type === 'INVALID' ) {
+    return '\x1b[31m'
+  }
   if ( type === 'ERROR' ) {
     return '\x1b[31m'
   }
@@ -82,6 +79,9 @@ function getColour( type: string ): string {
 function getPrefix( type: string ): string {
   if ( type === 'IGNORE' ) {
     return 'IGNORE';
+  }
+  if ( type === 'INVALID' ) {
+    return 'INVALID';
   }
   if ( type === 'ERROR' ) {
     return 'ERROR'
@@ -105,6 +105,10 @@ function getMessage( messageCode: string ) {
   if ( messageCode === 'generic-keys' ) {
     return `Generic syntax (e.g. [key: string]: string) not supported`;
   }
+  if ( messageCode === 'invalid-file-type' ) {
+    return `Invalid file type`;
+  }
+
   return `Something went wrong`
 }
 
