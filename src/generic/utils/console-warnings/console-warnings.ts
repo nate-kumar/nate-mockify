@@ -1,15 +1,17 @@
 import ConsoleWarningParamsModel from '../../../mockify/models/console-warning-params.model';
+import ConsoleWarningTypesEnum from '../../enums/console-warning-types.enum';
 import ConsoleWarningSegmentModel from '../../models/console-warning-segment.model';
+import ConsoleWarningTypesModel from '../../models/console-warning-types.model';
 
-const consoleWarningsArray: ConsoleWarningSegmentModel[][] = [];
+const consoleWarningObject: ConsoleWarningTypesModel = {};
 
 export default function addConsoleWarning(
-  type: string,
+  type: ConsoleWarningTypesEnum,
   messageCode: string,
   params: ConsoleWarningParamsModel
 ): void {
   if ( !messageCode ) { 
-    type = 'error'
+    type = ConsoleWarningTypesEnum.error
   }
 
   const warningSegments: ConsoleWarningSegmentModel[] =
@@ -19,15 +21,15 @@ export default function addConsoleWarning(
       params
     )
 
-  consoleWarningsArray.push( warningSegments );
+  consoleWarningObject?.[ type ]?.push( warningSegments ) || ( consoleWarningObject[ type ] = [ warningSegments ] );
 }
 
-export function getConsoleWarningsArray(): ConsoleWarningSegmentModel[][] {
-  return consoleWarningsArray;
+export function getConsoleWarningsObject(): ConsoleWarningTypesModel {
+  return consoleWarningObject;
 }
 
 function getWarningSegments(
-  type: string,
+  type: ConsoleWarningTypesEnum,
   messageCode: string,
   params: ConsoleWarningParamsModel
 ): ConsoleWarningSegmentModel[] {
@@ -63,29 +65,31 @@ function getWarningSegments(
   return segments;
 }
 
-function getColour( type: string ): string {
-  if ( type === 'IGNORE' ) {
+function getColour( type: ConsoleWarningTypesEnum ): string {
+  if ( type === ConsoleWarningTypesEnum.ignore ) {
     return '\x1b[33m';
   }
-  if ( type === 'INVALID' ) {
+  if ( type === ConsoleWarningTypesEnum.invalid ) {
     return '\x1b[31m'
   }
-  if ( type === 'ERROR' ) {
+  if ( type === ConsoleWarningTypesEnum.error ) {
     return '\x1b[31m'
   }
+
   return '\x1b[0m'
 }
 
-function getPrefix( type: string ): string {
-  if ( type === 'IGNORE' ) {
+function getPrefix( type: ConsoleWarningTypesEnum ): string {
+  if ( type === ConsoleWarningTypesEnum.ignore ) {
     return 'IGNORE';
   }
-  if ( type === 'INVALID' ) {
+  if ( type === ConsoleWarningTypesEnum.invalid ) {
     return 'INVALID';
   }
-  if ( type === 'ERROR' ) {
+  if ( type === ConsoleWarningTypesEnum.error ) {
     return 'ERROR'
   }
+  
   return ''
 }
 

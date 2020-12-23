@@ -1,6 +1,7 @@
 import ClassNameAndKeysModel from '../../models/class-name-and-keys';
 import ClassLineSegmentsModel from '../../models/class-line-segments.model';
 import addConsoleWarning from '../../../generic/utils/console-warnings/console-warnings';
+import ConsoleWarningTypesEnum from '../../../generic/enums/console-warning-types.enum';
 
 export default function getClassNameAndKeys( modelFileText: string ) {
   // Get code as string from .model.ts file
@@ -131,7 +132,7 @@ function handleFileErrors(
 ) {
   if ( fileErrors.includes( 'constructor' ) ) {
     addConsoleWarning(
-      'IGNORE',
+      ConsoleWarningTypesEnum.ignore,
       'constructor',
       { className }
     )
@@ -171,7 +172,7 @@ function getClassName( lineExportInterface: string ): string {
 function handleClassNameErrors( classNameWithErrors: string ): string {
   if ( classNameWithErrors === '' ) {
     addConsoleWarning(
-      'IGNORE',
+      ConsoleWarningTypesEnum.ignore,
       'class-name-empty',
       {}
     )
@@ -236,7 +237,7 @@ function handleKeysErrors(
 ): string[] {
   if ( keysWithPotentialErrors.length === 0 ) {
     addConsoleWarning(
-      'IGNORE',
+      ConsoleWarningTypesEnum.ignore,
       'keys-empty',
       { className }
     )
@@ -244,7 +245,7 @@ function handleKeysErrors(
 
   if ( keysWithPotentialErrors.includes( '[key' ) ) {
     addConsoleWarning(
-      'IGNORE',
+      ConsoleWarningTypesEnum.ignore,
       'generic-keys',
       { className }
     )

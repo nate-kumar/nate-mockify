@@ -16,6 +16,7 @@ import incrementProgressBar from '../generic/rules/progress-bar/rule-increment-p
 import stopProgressBar from '../generic/rules/progress-bar/rule-stop-progress-bar/rule-stop-progress-bar';
 import createProgressBar from '../generic/rules/progress-bar/create-progress-bar/create-progress-bar';
 import displayConsoleWarnings from '../generic/utils/console-warnings/rule-display-console-warnings';
+import ConsoleWarningTypesEnum from '../generic/enums/console-warning-types.enum';
 // import { buildAddImportsRule } from './rules/rule-add-imports/rule-add-imports';
 
 
@@ -125,7 +126,7 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
     if ( tree.exists( mockUrl ) ) {
       if ( !overwriteExisting ) {
         addConsoleWarning(
-          'IGNORE',
+          ConsoleWarningTypesEnum.ignore,
           'not-overwritten',
           { className }
         )
@@ -164,7 +165,7 @@ function skipInvalidFileType( fileSegmentUrl: string ) {
     _context: SchematicContext
   ) => {
     addConsoleWarning(
-      'INVALID',
+      ConsoleWarningTypesEnum.invalid,
       'invalid-file-type',
       { fileName: fileSegmentUrl }
     )
