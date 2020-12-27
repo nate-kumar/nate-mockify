@@ -5,6 +5,11 @@
       "description": "Creates mock files from corresponding model files",
       "factory": "./nate-mockify/index#mockify",
       "schema": "./nate-mockify/schema.json"
+    },
+    "nate-componentify": {
+      "description": "Creates mock files from corresponding model files",
+      "factory": "./nate-componentify/index#componentify",
+      "schema": "./nate-componentify/schema.json"
     }
   }
 }

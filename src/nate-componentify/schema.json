@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "Mockify",
+  "title": "Mockify Options Schema",
+  "description": "Generates mock file for a given TypeScript model",
+  "properties": {
+    "componentFolderUrl": {
+      "type": "string",
+      "description": "The url of the folder in which to create the parent folder which contains the component and associated files",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "\u001b[0mPlease specify the relative path where the .component.ts files are to be generated\n\u001b[0m  >"
+    }
+  },
+  "required": [
+    "componentFolderUrl"
+  ]
+}
