@@ -19,7 +19,6 @@ import displayConsoleWarnings from '../generic/utils/console-warnings/rule-displ
 import ConsoleWarningTypesEnum from '../generic/enums/console-warning-types.enum';
 import buildAddImportsRule from './rules/rule-add-imports/rule-add-imports';
 import skipInvalidFileType from '../generic/rules/files/rule-skip-invalid-file-type/rule-skip-invalid-file-type';
-import getRelativePath from '../generic/utils/get-relative-path/get-relative-path';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -33,8 +32,6 @@ export function mockify( _options: Schema ): Rule {
     const overwriteExisting: boolean = _options.overwriteExisting || false;
     const withImports: boolean = _options.withImports || false;
     const rulesFullModelFolder: Rule[] = []
-
-    getRelativePath( './models/accept-invite-details.model.ts' );
 
     const isModelFile: ( modelFileUrl: string ) => boolean = ( modelFileUrl: string ) => modelFileUrl.includes( '.model.ts' )
     const isMockFile: ( modelFileUrl: string ) => boolean = ( modelFileUrl: string ) => modelFileUrl.includes( '.mock.ts' )
