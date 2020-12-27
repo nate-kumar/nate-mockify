@@ -1,10 +1,10 @@
 {
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
-    "mockify": {
-      "description": "A blank schematic.",
-      "factory": "./mockify/index#mockify",
-      "schema": "./mockify/schema.json"
+    "nate-mockify": {
+      "description": "Creates mock files from corresponding model files",
+      "factory": "./nate-mockify/index#mockify",
+      "schema": "./nate-mockify/schema.json"
     }
   }
 }

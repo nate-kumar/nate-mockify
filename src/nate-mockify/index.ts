@@ -1,7 +1,7 @@
-import MockifyModel from './models/mockify.model';
 import { Schema } from './schema.d';
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
 import { Path } from '@angular-devkit/core';
+import MockifyModel from './models/mockify.model';
 import getClassNameAndKeys from './utils/get-class-name-and-keys/get-class-name-and-keys'
 import addConsoleWarning from '../generic/utils/console-warnings/console-warnings';
 import MoveFileModel from '../generic/models/move-file.model';

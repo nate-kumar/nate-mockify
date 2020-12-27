@@ -1,4 +1,4 @@
-import ConsoleWarningParamsModel from '../../../mockify/models/console-warning-params.model';
+import ConsoleWarningParamsModel from '../../../nate-mockify/models/console-warning-params.model'; // TODO
 import ConsoleWarningTypesEnum from '../../enums/console-warning-types.enum';
 import ConsoleWarningSegmentModel from '../../models/console-warning-segment.model';
 import ConsoleWarningTypesModel from '../../models/console-warning-types.model';
