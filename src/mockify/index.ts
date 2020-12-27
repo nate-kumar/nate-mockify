@@ -18,6 +18,7 @@ import createProgressBar from '../generic/rules/progress-bar/create-progress-bar
 import displayConsoleWarnings from '../generic/utils/console-warnings/rule-display-console-warnings';
 import ConsoleWarningTypesEnum from '../generic/enums/console-warning-types.enum';
 import buildAddImportsRule from './rules/rule-add-imports/rule-add-imports';
+import skipInvalidFileType from '../generic/rules/files/rule-skip-invalid-file-type/rule-skip-invalid-file-type';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -31,6 +32,8 @@ export function mockify( _options: Schema ): Rule {
     const overwriteExisting: boolean = _options.overwriteExisting || false;
     const withImports: boolean = _options.withImports || false;
     const rulesFullModelFolder: Rule[] = []
+
+    getRelativePath( './models/accept-invite-details.model.ts' );
 
     const isModelFile: ( modelFileUrl: string ) => boolean = ( modelFileUrl: string ) => modelFileUrl.includes( '.model.ts' )
     const isMockFile: ( modelFileUrl: string ) => boolean = ( modelFileUrl: string ) => modelFileUrl.includes( '.mock.ts' )
@@ -162,20 +165,5 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
     }
 
     return chain( rulesFullModelFile )( tree, context )
-  }
-}
-
-function skipInvalidFileType( fileSegmentUrl: string ) {
-  return (
-    tree: Tree,
-    _context: SchematicContext
-  ) => {
-    addConsoleWarning(
-      ConsoleWarningTypesEnum.invalid,
-      'invalid-file-type',
-      { fileName: fileSegmentUrl }
-    )
-
-    return tree;
   }
 }
