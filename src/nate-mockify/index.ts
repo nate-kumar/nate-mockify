@@ -3,7 +3,6 @@ import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics'
 import { Path } from '@angular-devkit/core';
 import MockifyModel from './models/mockify.model';
 import getClassNameAndKeys from './utils/get-class-name-and-keys/get-class-name-and-keys'
-import addConsoleWarning from '../generic/utils/console-warnings/console-warnings';
 import MoveFileModel from '../generic/models/move-file.model';
 import buildWithBlocksRule from './rules/rule-with-blocks/rule-with-blocks'
 import buildExportClassRule from './rules/rule-export-class/rule-export-class'
@@ -18,7 +17,8 @@ import createProgressBar from '../generic/rules/progress-bar/create-progress-bar
 import displayConsoleWarnings from '../generic/utils/console-warnings/rule-display-console-warnings';
 import ConsoleWarningTypesEnum from '../generic/enums/console-warning-types.enum';
 import buildAddImportsRule from './rules/rule-add-imports/rule-add-imports';
-import skipInvalidFileType from '../generic/rules/files/rule-skip-invalid-file-type/rule-skip-invalid-file-type';
+import skipInvalidFileType from './rules/rule-skip-invalid-file-type/rule-skip-invalid-file-type';
+import addConsoleWarningMockify from './utils/console-warnings/console-warnings';
 
 
 export function mockify( _options: Schema ): Rule {
@@ -129,7 +129,7 @@ function mockifyFile( mockifyConfig: MockifyModel ): Rule {
 
     if ( tree.exists( mockUrl ) ) {
       if ( !overwriteExisting ) {
-        addConsoleWarning(
+        addConsoleWarningMockify(
           ConsoleWarningTypesEnum.ignore,
           'not-overwritten',
           { className }

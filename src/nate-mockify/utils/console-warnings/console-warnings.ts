@@ -1,37 +1,36 @@
-import ConsoleWarningSegmentModel from "../../../generic/models/console-warning-segment.model";
-import ConsoleWarningParamsModel from "../../models/console-warning-params.model";
+import ConsoleWarningTypesEnum from '../../../generic/enums/console-warning-types.enum';
+import ConsoleWarningSegmentModel from '../../../generic/models/console-warning-segment.model';
+import addConsoleWarning from '../../../generic/utils/console-warnings/console-warnings';
+import ConsoleWarningParamsModel from '../../../nate-mockify/models/console-warning-params.model'; // TODO
 
-export function consoleWarning(
-  type: string,
+export default function addConsoleWarningMockify(
+  type: ConsoleWarningTypesEnum,
   messageCode: string,
   params: ConsoleWarningParamsModel
 ) {
-  if ( !messageCode ) { 
-    type = 'error'
-  }
-
   const warningSegments: ConsoleWarningSegmentModel[] =
-    getWarningSegments(
+    getMockifyWarningSegments(
       type,
       messageCode,
       params
     )
 
-  const warningSegmentsArray: string[] = 
+  addConsoleWarning(
+    type,
     warningSegments
-      .map(
-        ( warningSegment: ConsoleWarningSegmentModel ) => warningSegment.colour + warningSegment.text
-      )
-
-  console.warn( ...warningSegmentsArray );
+  )
 }
 
-function getWarningSegments(
-  type: string,
+function getMockifyWarningSegments(
+  type: ConsoleWarningTypesEnum,
   messageCode: string,
   params: ConsoleWarningParamsModel
 ): ConsoleWarningSegmentModel[] {
-  let segments: ConsoleWarningSegmentModel[] = [];
+  let segments = [];
+
+  if ( !messageCode ) { 
+    type = ConsoleWarningTypesEnum.error
+  }
 
   if ( type ) {
     const typeSegment: ConsoleWarningSegmentModel = 
@@ -63,23 +62,31 @@ function getWarningSegments(
   return segments;
 }
 
-function getColour( type: string ): string {
-  if ( type === 'IGNORE' ) {
+function getColour( type: ConsoleWarningTypesEnum ): string {
+  if ( type === ConsoleWarningTypesEnum.ignore ) {
     return '\x1b[33m';
   }
-  if ( type === 'ERROR' ) {
+  if ( type === ConsoleWarningTypesEnum.invalid ) {
     return '\x1b[31m'
   }
+  if ( type === ConsoleWarningTypesEnum.error ) {
+    return '\x1b[31m'
+  }
+
   return '\x1b[0m'
 }
 
-function getPrefix( type: string ): string {
-  if ( type === 'IGNORE' ) {
+function getPrefix( type: ConsoleWarningTypesEnum ): string {
+  if ( type === ConsoleWarningTypesEnum.ignore ) {
     return 'IGNORE';
   }
-  if ( type === 'ERROR' ) {
+  if ( type === ConsoleWarningTypesEnum.invalid ) {
+    return 'INVALID';
+  }
+  if ( type === ConsoleWarningTypesEnum.error ) {
     return 'ERROR'
   }
+  
   return ''
 }
 
@@ -99,6 +106,10 @@ function getMessage( messageCode: string ) {
   if ( messageCode === 'generic-keys' ) {
     return `Generic syntax (e.g. [key: string]: string) not supported`;
   }
+  if ( messageCode === 'invalid-file-type' ) {
+    return `Invalid file type`;
+  }
+
   return `Something went wrong`
 }
 

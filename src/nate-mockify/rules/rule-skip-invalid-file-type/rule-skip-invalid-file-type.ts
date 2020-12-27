@@ -1,14 +1,14 @@
 import { SchematicContext } from "@angular-devkit/schematics";
 import { Tree } from "@angular-devkit/schematics/src/tree/interface";
-import ConsoleWarningTypesEnum from "../../../enums/console-warning-types.enum";
-import addConsoleWarning from "../../../utils/console-warnings/console-warnings";
+import addConsoleWarningMockify from "../../utils/console-warnings/console-warnings";
+import ConsoleWarningTypesEnum from "../../../generic/enums/console-warning-types.enum";
 
 export default function skipInvalidFileType( fileSegmentUrl: string ) {
   return (
     tree: Tree,
     _context: SchematicContext
   ) => {
-    addConsoleWarning(
+    addConsoleWarningMockify(
       ConsoleWarningTypesEnum.invalid,
       'invalid-file-type',
       { fileName: fileSegmentUrl }
