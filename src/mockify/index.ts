@@ -19,6 +19,7 @@ import displayConsoleWarnings from '../generic/utils/console-warnings/rule-displ
 import ConsoleWarningTypesEnum from '../generic/enums/console-warning-types.enum';
 import buildAddImportsRule from './rules/rule-add-imports/rule-add-imports';
 import skipInvalidFileType from '../generic/rules/files/rule-skip-invalid-file-type/rule-skip-invalid-file-type';
+import getRelativePath from '../generic/utils/get-relative-path/get-relative-path';
 
 
 export function mockify( _options: Schema ): Rule {
