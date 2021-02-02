@@ -11,7 +11,7 @@
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "\u001b[0mPlease specify the relative path where the .component.ts files are to be generated\n\u001b[0m  >"
+      "x-prompt": "\u001b[0mPlease specify the relative path where the component folder is to be generated\n\u001b[0m  >"
     }
   },
   "required": [
