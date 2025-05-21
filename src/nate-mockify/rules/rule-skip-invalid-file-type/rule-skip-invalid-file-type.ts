@@ -1,19 +1,17 @@
-import { SchematicContext } from "@angular-devkit/schematics";
-import { Tree } from "@angular-devkit/schematics/src/tree/interface";
+import { Rule, SchematicContext, Tree } from "@angular-devkit/schematics";
 import addConsoleWarningMockify from "../../utils/console-warnings/console-warnings";
 import ConsoleWarningTypesEnum from "../../../generic/enums/console-warning-types.enum";
 
-export default function skipInvalidFileType( fileSegmentUrl: string ) {
+export default function skipInvalidFileType( fileSegmentUrl: string ): Rule { // Explicitly Rule
   return (
-    tree: Tree,
+    _tree: Tree, // tree parameter is not used
     _context: SchematicContext
-  ) => {
+  ): void => { // Inner function returns void
     addConsoleWarningMockify(
       ConsoleWarningTypesEnum.invalid,
       'invalid-file-type',
       { fileName: fileSegmentUrl }
-    )
-
-    return tree;
+    );
+    // No longer returns tree
   }
 }

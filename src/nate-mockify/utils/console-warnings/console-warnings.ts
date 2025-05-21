@@ -112,5 +112,3 @@ function getMessage( messageCode: string ) {
 
   return `Something went wrong`
 }
-
-module.exports;

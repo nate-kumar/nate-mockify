@@ -1,20 +1,19 @@
-import ConsoleWarningTypesModel from './../../models/console-warning-types.model.d';
-import { Rule, SchematicContext } from "@angular-devkit/schematics";
-import { Tree } from "@angular-devkit/schematics/src/tree/interface";
+import ConsoleWarningTypesModel from './../../models/console-warning-types.model'; // Corrected import path
+import { Rule, SchematicContext, Tree } from "@angular-devkit/schematics"; // Corrected Tree import
 import ConsoleWarningSegmentModel from "../../models/console-warning-segment.model";
 import { getConsoleWarningsObject } from "./console-warnings";
 import ConsoleWarningTypesEnum from '../../enums/console-warning-types.enum';
 
 export default function displayConsoleWarnings(): Rule {
   return (
-    tree: Tree,
+    _tree: Tree, // Renamed unused tree parameter
     _context: SchematicContext
-  ) => {
+  ): void => { // Changed return type to void
     const consoleWarningsObject: ConsoleWarningTypesModel = getConsoleWarningsObject();
     const consoleWarningsCombinedString: string = formatConsoleWarningSegments( consoleWarningsObject );
 
     console.warn( consoleWarningsCombinedString );
-    return tree;
+    // No longer returns tree
   }
 }
 
@@ -56,5 +55,3 @@ function formatConsoleWarningSegments( consoleWarningsObject: ConsoleWarningType
 
   return consoleWarningsCombinedStringWithNewLine;
 }
-
-module.exports;

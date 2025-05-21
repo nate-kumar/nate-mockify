@@ -1,7 +1,4 @@
-// model-function-segment.ts.template
-
-import { Rule, SchematicContext } from "@angular-devkit/schematics";
-import { Tree } from "@angular-devkit/schematics/src/tree/interface";
+import { Rule, SchematicContext, Tree } from "@angular-devkit/schematics";
 import AddCodeFromTemplateModel from "../../../generic/models/add-code-from-template.model";
 import addCodeFromTemplate from "../../../generic/rules/files/rule-add-code-from-template/rule-add-code-from-template";
 
@@ -29,5 +26,3 @@ export default function buildModelFunctionRule(
     return addCodeFromTemplate( addCodeFromTemplateConfig );
   };
 }
-
-module.exports;

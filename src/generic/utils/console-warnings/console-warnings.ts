@@ -14,5 +14,3 @@ export default function addConsoleWarning(
 export function getConsoleWarningsObject(): ConsoleWarningTypesModel {
   return consoleWarningObject;
 }
-
-module.exports;

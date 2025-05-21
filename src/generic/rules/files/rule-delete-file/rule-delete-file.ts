@@ -1,14 +1,14 @@
-import { Rule, SchematicContext } from "@angular-devkit/schematics";
-import { Tree } from "@angular-devkit/schematics/src/tree/interface";
+import { Rule, SchematicContext, Tree } from "@angular-devkit/schematics";
 
 export default function deleteFile( fileToDeleteUrl: string ): Rule {
   return (
     tree: Tree,
     _context: SchematicContext
-  ) => {
-    tree.delete( fileToDeleteUrl );
-    return tree;
+  ): void => { // Changed return type to void
+    if (tree.exists(fileToDeleteUrl)) {
+      tree.delete( fileToDeleteUrl );
+    } else {
+      _context.logger.warn(`File to delete '${fileToDeleteUrl}' does not exist. Skipping deletion.`);
+    }
   };
 }
-
-module.exports;

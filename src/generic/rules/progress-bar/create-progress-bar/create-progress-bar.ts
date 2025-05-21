@@ -9,5 +9,3 @@ export default function createProgressBar(): any {
 
   return progressBar
 }
-
-module.exports;

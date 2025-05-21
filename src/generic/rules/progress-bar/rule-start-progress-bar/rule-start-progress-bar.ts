@@ -1,5 +1,4 @@
-import { Rule, SchematicContext } from "@angular-devkit/schematics";
-import { Tree } from "@angular-devkit/schematics/src/tree/interface";
+import { Rule, SchematicContext, Tree, DirEntry } from "@angular-devkit/schematics";
 
 export default function startProgressBar(
   progressBar: any,
@@ -8,21 +7,18 @@ export default function startProgressBar(
   return (
     tree: Tree,
     _context: SchematicContext
-  ) => {
-    console.log( '' )
+  ): void => { // Changed return type to void
+    console.log( '' );
 
-    const numFiles: number =
-      tree
-        .getDir( folderUrl )?.subfiles?.length;
-
-    progressBar
-      .start(
-        numFiles,
-        0
-      );
-
-    return tree
+    let numFiles: number = 0;
+    try {
+      const dirEntry: DirEntry = tree.getDir(folderUrl);
+      numFiles = dirEntry.subfiles.length;
+    } catch (e) {
+      _context.logger.warn(`Could not get directory information for '${folderUrl}'. Starting progress bar with 0 files.`);
+      // Optionally, re-throw if this is a critical error: throw e;
+    }
+    
+    progressBar.start(numFiles, 0);
   }
 }
-
-module.exports;

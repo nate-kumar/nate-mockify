@@ -1,5 +1,5 @@
-import { normalize } from '@angular-devkit/core/src/virtual-fs/path';
-const path = require( 'path' )
+import { normalize } from '@angular-devkit/core'; // Corrected import for normalize
+import * as path from 'path'; // Changed to ES6 import style
 
 export default function getRelativePath(
   fileToGenerateRelativePathTo: string,

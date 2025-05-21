@@ -1,6 +1,5 @@
 import { strings } from "@angular-devkit/core";
-import { Rule, SchematicContext, Source, mergeWith, apply, url, template } from "@angular-devkit/schematics";
-import { Tree } from "@angular-devkit/schematics/src/tree/interface";
+import { Rule, SchematicContext, Source, mergeWith, apply, url, template, Tree } from "@angular-devkit/schematics";
 import GenerateTemplateModel from "../../../models/generate-template.model";
 
 export default function generateTemplateFile( _options: GenerateTemplateModel ): Rule {
@@ -31,5 +30,3 @@ export default function generateTemplateFile( _options: GenerateTemplateModel ):
     return mergeWith( sourceParametrizedTemplates )( tree, context );
   }
 }
-
-module.exports;

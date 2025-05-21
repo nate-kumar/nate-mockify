@@ -258,5 +258,3 @@ function handleKeysErrors(
 
   return keysWithPotentialErrors;
 }
-
-module.exports;

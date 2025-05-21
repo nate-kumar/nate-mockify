@@ -21,5 +21,3 @@ export function getFilesFromDirectorySync( folderUrl: string ) {
 
   return modelUrls;
 }
-
-module.exports;
