@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "tsconfig",
     "lib": [
-      "es2018",
+      "es2022",
       "dom"
     ],
     "declaration": true,
@@ -18,8 +18,8 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "strictNullChecks": true,
-    "target": "es6",
+    "strict": true,
+    "target": "es2022",
     "types": [
       "jasmine",
       "node"

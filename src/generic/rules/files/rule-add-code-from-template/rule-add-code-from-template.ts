@@ -1,5 +1,4 @@
-import { chain, Rule, SchematicContext } from "@angular-devkit/schematics";
-import { Tree } from "@angular-devkit/schematics/src/tree/interface";
+import { chain, Rule, SchematicContext, Tree } from "@angular-devkit/schematics";
 import AddCodeFromTemplateModel from "../../../models/add-code-from-template.model";
 import AddToFileModel from "../../../models/add-to-file.model";
 import GenerateTemplateModel from "../../../models/generate-template.model";
