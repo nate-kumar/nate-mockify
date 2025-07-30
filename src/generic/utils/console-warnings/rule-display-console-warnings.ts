@@ -1,6 +1,5 @@
-import ConsoleWarningTypesModel from './../../models/console-warning-types.model.d';
-import { Rule, SchematicContext } from "@angular-devkit/schematics";
-import { Tree } from "@angular-devkit/schematics/src/tree/interface";
+import ConsoleWarningTypesModel from './../../models/console-warning-types.model';
+import { Rule, SchematicContext, Tree } from "@angular-devkit/schematics";
 import ConsoleWarningSegmentModel from "../../models/console-warning-segment.model";
 import { getConsoleWarningsObject } from "./console-warnings";
 import ConsoleWarningTypesEnum from '../../enums/console-warning-types.enum';

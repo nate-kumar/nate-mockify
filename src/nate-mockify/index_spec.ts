@@ -6,10 +6,13 @@ import * as path from 'path';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 
-describe('mockify', () => {
+describe('nate-mockify', () => {
   it('works', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematicAsync('mockify', {}, Tree.empty()).toPromise();
+    const tree = await runner.runSchematic('nate-mockify', {
+      modelsFolderUrl: './models/',
+      mocksFolderUrl: './models/mocks/'
+    }, Tree.empty());
 
     expect(tree.files).toEqual([]);
   });

@@ -1,5 +1,4 @@
-import { Rule, SchematicContext } from "@angular-devkit/schematics";
-import { Tree } from "@angular-devkit/schematics/src/tree/interface";
+import { Rule, SchematicContext, Tree } from "@angular-devkit/schematics";
 import MoveFileModel from "../../../models/move-file.model";
 
 export default function moveFile( moveMockFileConfig: MoveFileModel ): Rule {

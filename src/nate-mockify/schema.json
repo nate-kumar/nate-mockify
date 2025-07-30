@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "Mockify",
+  "$id": "Mockify",
   "title": "Mockify Options Schema",
   "description": "Generates mock file for a given TypeScript model",
   "properties": {
