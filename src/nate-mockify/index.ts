@@ -1,4 +1,4 @@
-import { Schema } from './schema.d';
+import { Schema } from './schema';
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
 import { Path } from '@angular-devkit/core';
 import MockifyModel from './models/mockify.model';
