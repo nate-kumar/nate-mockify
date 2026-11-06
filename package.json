@@ -25,5 +25,9 @@
     "@types/node": "^22.20.1",
     "jasmine": "^5.13.0",
     "typescript": "~5.8"
+  },
+  "overrides": {
+    "glob": "^14.0.3",
+    "minimatch": "^11.0.5"
   }
 }
